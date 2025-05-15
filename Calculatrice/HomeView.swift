@@ -27,9 +27,21 @@ struct HomeView: View {
         [.zero, .doubleZero, .decimal, .equal]
     ]
     
+    //pour les haptics
+    @State private var hapticForMore = false
+    @State private var hapticForButtons = false
+    @State private var hapticForSettings = false
+    
     
     //operateur choisi
     @State private var choosenOperator: CalculatorButtons?
+    
+    //le bouton réglage
+    @State private var openSettingsView = false
+    @State private var openCurrenciesView = false
+    
+    //animation
+    @State private var rotateGear = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -37,7 +49,7 @@ struct HomeView: View {
                 VStack {
                     HStack {
                         Button {
-                            
+                            hapticForMore.toggle()
                         }label: {
                             VStack(alignment: .leading, spacing: 5) {
                                 RoundedRectangle(cornerRadius: 30)
@@ -49,14 +61,34 @@ struct HomeView: View {
                             }
                         }
                         .foregroundStyle(.black)
+                        .sensoryFeedback(.impact(weight: .medium, intensity: 1), trigger: hapticForMore)
                         Spacer()
-                        Button {
-                            
+                        Menu {
+                            Button("Réglages") {
+                                hapticForSettings.toggle()
+                                openSettingsView.toggle()
+                            }
+                            Button("Convertisseur de devises") {
+                                hapticForSettings.toggle()
+                                openCurrenciesView.toggle()
+                            }
                         } label: {
                             Image(systemName: "gear")
                                 .font(.system(size: 24))
+                                .rotationEffect(.degrees(rotateGear ? 30 : 0))
+                                .animation(.spring(response: 0.3, dampingFraction: 0.5), value: rotateGear)
                         }
                         .foregroundStyle(.black)
+                        .sensoryFeedback(.impact(weight: .medium, intensity: 1), trigger: hapticForSettings)
+                        .onTapGesture {
+                            withAnimation {
+                                rotateGear.toggle()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    rotateGear = false
+                                    //on remet a false apres un certain 2s
+                                }
+                            }
+                        }
                     }
                     Spacer()
                 }
@@ -68,31 +100,8 @@ struct HomeView: View {
                             Spacer()
                             if !saisiePrecedente.isEmpty {
                                 let newArray = separators(saisiePrecedente)
-                                Text(newArray[0])
-                                    .bold()
-                                    .font(.system(size: 25))
-                                if let theOperator = choosenOperator {
-                                    Text(theOperator.rawValue)
-                                        .bold()
-                                        .font(.system(size: 25))
-                                        .foregroundStyle(.red)
-                                }
-                                //s il ya un deuxieme operateur
-                                if newArray.indices.contains(1) {
-                                    Text(newArray[1])
-                                        .bold()
-                                        .font(.system(size: 25))
-                                }
-                                if saisiePrecedente.last == "=" || newArray.count == 3 {
-                                    Text("=")
-                                        .bold()
-                                        .font(.system(size: 25))
-                                        .foregroundStyle(.red)
-                                }
-                                if newArray.indices.contains(2) {
-                                    Text(newArray[2])
-                                        .bold()
-                                        .font(.system(size: 25))
+                                if let texte = afficherElement(0, dans: newArray) {
+                                    texte
                                 }
                             }
                         }
@@ -100,7 +109,7 @@ struct HomeView: View {
                             Spacer()
                             Text(saisie)
                                 .bold()
-                                .font(.system(size: 75))
+                                .font(saisie.count > 7 ? .system(size: 60) : .system(size: 75))
                         }
                     }
                     
@@ -114,6 +123,7 @@ struct HomeView: View {
                             HStack {
                                 ForEach(row, id: \.self) { column in
                                     Button {
+                                        hapticForButtons.toggle()
                                         work(column)
                                     }label: {
                                         RoundedRectangle(cornerRadius: 15)
@@ -126,6 +136,7 @@ struct HomeView: View {
                                                     .font(.title)
                                             )
                                     }
+                                    .sensoryFeedback(.impact(weight: .medium, intensity: 1), trigger: hapticForButtons)
                                 }
                             }
                             .frame(maxWidth: .infinity)
@@ -176,19 +187,30 @@ struct HomeView: View {
         } else if column == .erase && saisie != "0" {
             saisie.removeLast()
         } else if column == .clear {
-            saisie = "0"
+            if saisie == "0" && !saisiePrecedente.isEmpty {
+                saisiePrecedente.removeAll()
+                choosenOperator = nil
+            } else {
+                saisie = "0"
+            }
+            if let resultat = resultat {
+                saisiePrecedente += resultat
+                
+            }
         } else if column == .percent {
             percent()
         } else if column.isOperator {
             choosenOperator = column
-            if operateur1 == nil {
+            if operateur1 == nil && resultat == nil {
                 operateur1 = saisie
                 saisie = "0"
                 saisiePrecedente = (operateur1 ?? "") + (choosenOperator?.rawValue ?? "")
-            } else if operateur1 != nil && operateur2 != nil && resultatPrecedent != nil {
-                operateur1 = resultatPrecedent
-                saisie = "0"
-                operateur2 = saisie
+            } else if resultat != nil && operateur1 != nil {
+                resultatPrecedent = resultat
+                operateur1 = saisie
+                operateur2 = nil
+                resultat = nil
+                saisiePrecedente.removeAll()
                 saisiePrecedente = (operateur1 ?? "") + (choosenOperator?.rawValue ?? "")
             }
         } else if column == .equal {
@@ -224,6 +246,16 @@ struct HomeView: View {
             //rien
             break
         }
+    }
+    //refaire cette fonction pour bien renvoyer
+    private func afficherElement(_ index: Int, dans array: [String]) -> Text? {
+        if array.indices.contains(index) {
+            return Text(array[index])
+                .bold()
+                .font(.system(size: 25))
+                .foregroundStyle(array[index] == "=" ? .red : .black)
+        }
+        return nil //car c'est optionnel
     }
 }
 
