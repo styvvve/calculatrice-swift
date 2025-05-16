@@ -8,7 +8,7 @@
 import Foundation
 
 func separators(_ texte: String) -> [String] {
-    let operators = CharacterSet(charactersIn: "+-*/=")
+    let operators = CharacterSet(charactersIn: "+-x/=")
     let parts = texte.components(separatedBy: operators)
     return parts
 }

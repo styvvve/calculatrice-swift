@@ -36,12 +36,18 @@ struct HomeView: View {
     //operateur choisi
     @State private var choosenOperator: CalculatorButtons?
     
-    //le bouton réglage
+    //ouvrir les reglages
     @State private var openSettingsView = false
-    @State private var openCurrenciesView = false
     
     //animation
     @State private var rotateGear = false
+    
+    
+    //mode convertisseur ou non
+    @State private var isCurrencyMode: Bool = false
+    
+    //les historiques
+    @State private var calcHistory: [String] = []
     
     var body: some View {
         GeometryReader { geometry in
@@ -68,9 +74,18 @@ struct HomeView: View {
                                 hapticForSettings.toggle()
                                 openSettingsView.toggle()
                             }
-                            Button("Convertisseur de devises") {
+                            Button {
                                 hapticForSettings.toggle()
-                                openCurrenciesView.toggle()
+                                isCurrencyMode.toggle()
+                            } label: {
+                                HStack {
+                                    Text("Convertisseur de devises")
+                                    Spacer()
+                                    if isCurrencyMode {
+                                        Image(systemName: "checkmark")
+                                            .foregroundStyle(.black)
+                                    }
+                                }
                             }
                         } label: {
                             Image(systemName: "gear")
@@ -101,6 +116,24 @@ struct HomeView: View {
                             if !saisiePrecedente.isEmpty {
                                 let newArray = separators(saisiePrecedente)
                                 if let texte = afficherElement(0, dans: newArray) {
+                                    texte
+                                }
+                                if let theOperator = choosenOperator {
+                                    Text(theOperator.rawValue)
+                                        .bold()
+                                        .font(.system(size: 25))
+                                        .foregroundStyle(.red)
+                                }
+                                if let texte = afficherElement(1, dans: newArray) {
+                                    texte
+                                }
+                                if saisiePrecedente.contains("=") {
+                                    Text("=")
+                                        .bold()
+                                        .font(.system(size: 25))
+                                        .foregroundStyle(.red)
+                                }
+                                if let texte = afficherElement(2, dans: newArray) {
                                     texte
                                 }
                             }
@@ -164,8 +197,9 @@ struct HomeView: View {
             saisiePrecedente += resultatPrecedent ?? ""
             operateur1 = nil
             operateur2 = nil
+            resultat = nil
         }
-        if saisie == "0" || saisie == "00" || saisie == resultat {
+        if saisie == "0" || saisie == "00" || saisie == resultatPrecedent {
             saisie = button.rawValue
         }else {
             saisie += button.rawValue
@@ -188,14 +222,21 @@ struct HomeView: View {
             saisie.removeLast()
         } else if column == .clear {
             if saisie == "0" && !saisiePrecedente.isEmpty {
+                calcHistory.append(saisiePrecedente)
+                saveCalcHistory(calcHistory)
                 saisiePrecedente.removeAll()
                 choosenOperator = nil
+                resultatPrecedent = resultat
+                resultat = nil
             } else {
+                if saisie == resultat {
+                    resultatPrecedent = resultat
+                    saisiePrecedente += resultatPrecedent ?? ""
+                    operateur1 = nil
+                    operateur2 = nil
+                    resultat = nil
+                }
                 saisie = "0"
-            }
-            if let resultat = resultat {
-                saisiePrecedente += resultat
-                
             }
         } else if column == .percent {
             percent()
@@ -208,15 +249,20 @@ struct HomeView: View {
             } else if resultat != nil && operateur1 != nil {
                 resultatPrecedent = resultat
                 operateur1 = saisie
+                saisie = "0"
                 operateur2 = nil
                 resultat = nil
                 saisiePrecedente.removeAll()
                 saisiePrecedente = (operateur1 ?? "") + (choosenOperator?.rawValue ?? "")
             }
         } else if column == .equal {
-            if operateur1 != nil && choosenOperator != nil {
+            if operateur1 != nil && choosenOperator != nil && resultat == nil {
                 operateur2 = saisie
                 saisiePrecedente += (operateur2 ?? "") + "="
+                makeOperation()
+            } else if let resultat = resultat {
+                operateur1 = resultat
+                saisiePrecedente = (operateur1 ?? "") + (choosenOperator?.rawValue ?? "") + (operateur2 ?? "") + "="
                 makeOperation()
             }
         } else if column == .decimal {
