@@ -36,11 +36,14 @@ struct HomeView: View {
     //operateur choisi
     @State private var choosenOperator: CalculatorButtons?
     
-    //ouvrir les reglages
+    //ouvrir les reglages et autres vues
     @State private var openSettingsView = false
+    @State private var openMoreView: Bool = false
     
-    //animation
-    @State private var rotateGear = false
+    //boutons reglages
+    @State private var width: CGFloat = 50
+    @State private var height: CGFloat = 50
+    
     
     
     //mode convertisseur ou non
@@ -54,56 +57,16 @@ struct HomeView: View {
             VStack {
                 VStack {
                     HStack {
-                        Button {
-                            hapticForMore.toggle()
-                        }label: {
-                            VStack(alignment: .leading, spacing: 5) {
-                                RoundedRectangle(cornerRadius: 30)
-                                    .frame(width: 30, height: 4)
-                                RoundedRectangle(cornerRadius: 30)
-                                    .frame(width: 15, height: 4)
-                                RoundedRectangle(cornerRadius: 30)
-                                    .frame(width: 30, height: 4)
-                            }
-                        }
-                        .foregroundStyle(.black)
-                        .sensoryFeedback(.impact(weight: .medium, intensity: 1), trigger: hapticForMore)
+                        MoreButtonView(haptic: $hapticForMore, openMoreView: $openMoreView)
                         Spacer()
-                        Menu {
-                            Button("Réglages") {
-                                hapticForSettings.toggle()
-                                openSettingsView.toggle()
-                            }
-                            Button {
-                                hapticForSettings.toggle()
-                                isCurrencyMode.toggle()
-                            } label: {
-                                HStack {
-                                    Text("Convertisseur de devises")
-                                    Spacer()
-                                    if isCurrencyMode {
-                                        Image(systemName: "checkmark")
-                                            .foregroundStyle(.black)
-                                    }
-                                }
-                            }
+                        Button {
+                            
                         } label: {
-                            Image(systemName: "gear")
-                                .font(.system(size: 24))
-                                .rotationEffect(.degrees(rotateGear ? 30 : 0))
-                                .animation(.spring(response: 0.3, dampingFraction: 0.5), value: rotateGear)
+                            SettingsButtonShape(width: $width, height: $height)
                         }
-                        .foregroundStyle(.black)
+                        #if !targetEnvironment(simulator)
                         .sensoryFeedback(.impact(weight: .medium, intensity: 1), trigger: hapticForSettings)
-                        .onTapGesture {
-                            withAnimation {
-                                rotateGear.toggle()
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                    rotateGear = false
-                                    //on remet a false apres un certain 2s
-                                }
-                            }
-                        }
+                        #endif
                     }
                     Spacer()
                 }
@@ -169,7 +132,9 @@ struct HomeView: View {
                                                     .font(.title)
                                             )
                                     }
+                                    #if !targetEnvironment(simulator)
                                     .sensoryFeedback(.impact(weight: .medium, intensity: 1), trigger: hapticForButtons)
+                                    #endif
                                 }
                             }
                             .frame(maxWidth: .infinity)
@@ -223,7 +188,7 @@ struct HomeView: View {
         } else if column == .clear {
             if saisie == "0" && !saisiePrecedente.isEmpty {
                 calcHistory.append(saisiePrecedente)
-                saveCalcHistory(calcHistory)
+                //saveCalcHistory(calcHistory)
                 saisiePrecedente.removeAll()
                 choosenOperator = nil
                 resultatPrecedent = resultat
@@ -252,6 +217,8 @@ struct HomeView: View {
                 saisie = "0"
                 operateur2 = nil
                 resultat = nil
+                calcHistory.append(saisiePrecedente)
+                //saveCalcHistory(calcHistory)
                 saisiePrecedente.removeAll()
                 saisiePrecedente = (operateur1 ?? "") + (choosenOperator?.rawValue ?? "")
             }
@@ -265,7 +232,7 @@ struct HomeView: View {
                 saisiePrecedente = (operateur1 ?? "") + (choosenOperator?.rawValue ?? "") + (operateur2 ?? "") + "="
                 makeOperation()
             }
-        } else if column == .decimal {
+        } else if column == .decimal && !saisie.contains(".") {
             saisie += "."
         }
     }
@@ -305,6 +272,8 @@ struct HomeView: View {
     }
 }
 
-#Preview {
-    HomeView()
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
+    }
 }
