@@ -55,99 +55,86 @@ struct HomeView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                VStack {
-                    HStack {
-                        MoreButtonView(haptic: $hapticForMore, openMoreView: $openMoreView)
-                        Spacer()
-                        Button {
-                            
-                        } label: {
-                            SettingsButtonShape(width: $width, height: $height)
-                        }
-                        #if !targetEnvironment(simulator)
-                        .sensoryFeedback(.impact(weight: .medium, intensity: 1), trigger: hapticForSettings)
-                        #endif
-                    }
-                    Spacer()
-                }
-                VStack {
-                    
-                    VStack(alignment: .leading) {
-                        //zone d'écriture
-                        HStack(spacing: 2) {
-                            Spacer()
-                            if !saisiePrecedente.isEmpty {
-                                let newArray = separators(saisiePrecedente)
-                                if let texte = afficherElement(0, dans: newArray) {
-                                    texte
-                                }
-                                if let theOperator = choosenOperator {
-                                    Text(theOperator.rawValue)
-                                        .bold()
-                                        .font(.system(size: 25))
-                                        .foregroundStyle(.red)
-                                }
-                                if let texte = afficherElement(1, dans: newArray) {
-                                    texte
-                                }
-                                if saisiePrecedente.contains("=") {
-                                    Text("=")
-                                        .bold()
-                                        .font(.system(size: 25))
-                                        .foregroundStyle(.red)
-                                }
-                                if let texte = afficherElement(2, dans: newArray) {
-                                    texte
-                                }
-                            }
-                        }
-                        HStack {
-                            Spacer()
-                            Text(saisie)
-                                .bold()
-                                .font(saisie.count > 7 ? .system(size: 60) : .system(size: 75))
-                        }
-                    }
-                    
-                    //boutons
-                    let spacing: CGFloat = 5
-                    let buttonWidth = (geometry.size.width - spacing * 5) / 4
-                    
-                    VStack {
-                        
-                        ForEach(clavier, id: \.self) { row in
-                            HStack {
-                                ForEach(row, id: \.self) { column in
-                                    Button {
-                                        hapticForButtons.toggle()
-                                        work(column)
-                                    }label: {
-                                        RoundedRectangle(cornerRadius: 15)
-                                            .fill(column.getColor)
-                                            .frame(width: buttonWidth, height: 75)
-                                            .overlay(
-                                                Text(column.rawValue)
-                                                    .foregroundStyle(.white)
-                                                    .bold()
-                                                    .font(.title)
-                                            )
-                                    }
-                                    #if !targetEnvironment(simulator)
-                                    .sensoryFeedback(.impact(weight: .medium, intensity: 1), trigger: hapticForButtons)
-                                    #endif
-                                }
-                            }
-                            .frame(maxWidth: .infinity)
-                        }
-                    }
-                    .ignoresSafeArea()
-                }
-            }
-        }
-        .padding()
-        .onChange(of: saisie) {
-            if saisie.isEmpty {
-                saisie = "0"
+                /* VStack {
+                 
+                 VStack(alignment: .leading) {
+                 //zone d'écriture
+                 HStack(spacing: 2) {
+                 Spacer()
+                 if !saisiePrecedente.isEmpty {
+                 let newArray = separators(saisiePrecedente)
+                 if let texte = afficherElement(0, dans: newArray) {
+                 texte
+                 }
+                 if let theOperator = choosenOperator {
+                 Text(theOperator.rawValue)
+                 .bold()
+                 .font(.system(size: 25))
+                 .foregroundStyle(.red)
+                 }
+                 if let texte = afficherElement(1, dans: newArray) {
+                 texte
+                 }
+                 if saisiePrecedente.contains("=") {
+                 Text("=")
+                 .bold()
+                 .font(.system(size: 25))
+                 .foregroundStyle(.red)
+                 }
+                 if let texte = afficherElement(2, dans: newArray) {
+                 texte
+                 }
+                 }
+                 }
+                 HStack {
+                 Spacer()
+                 Text(saisie)
+                 .bold()
+                 .font(saisie.count > 7 ? .system(size: 60) : .system(size: 75))
+                 }
+                 }
+                 
+                 //boutons
+                 let spacing: CGFloat = 5
+                 let buttonWidth = (geometry.size.width - spacing * 5) / 4
+                 
+                 VStack {
+                 
+                 ForEach(clavier, id: \.self) { row in
+                 HStack {
+                 ForEach(row, id: \.self) { column in
+                 Button {
+                 hapticForButtons.toggle()
+                 work(column)
+                 }label: {
+                 RoundedRectangle(cornerRadius: 15)
+                 .fill(column.getColor)
+                 .frame(width: buttonWidth, height: 75)
+                 .overlay(
+                 Text(column.rawValue)
+                 .foregroundStyle(.white)
+                 .bold()
+                 .font(.title)
+                 )
+                 }
+                 #if !targetEnvironment(simulator)
+                 .sensoryFeedback(.impact(weight: .medium, intensity: 1), trigger: hapticForButtons)
+                 #endif
+                 }
+                 }
+                 .frame(maxWidth: .infinity)
+                 }
+                 }
+                 .ignoresSafeArea()
+                 }
+                 }
+                 }
+                 .padding()
+                 .onChange(of: saisie) {
+                 if saisie.isEmpty {
+                 saisie = "0"
+                 }
+                 */
             }
         }
     }
