@@ -10,19 +10,20 @@ import SwiftUI
 struct KeyboardView: View {
     
     //calcul precedent
-    @Binding var previousOperand1: String?
-    @Binding var previousOperand2: String?
-    @Binding var previousResult: String?
+    @State private var previousOperand1: String? = nil
+    @State private var previousOperand2: String? = nil
+    @State private var previousResult: String? = nil
     
     //calcul actuel
-    @Binding  var operand1: String?
-    @Binding  var operand2: String?
-    @Binding  var result: String?
+    @State private var op1: String? = nil
+    @State private var op2: String? = nil
+    @State private var result: String? = nil
     
-    @Binding var currentOperation: OperatorType?
+    @State private var currentOperation: CalculatorButtons?
     
     @State private var haptic: Bool = false
-    @Binding var saisieActuelle: String
+    
+    @State private var saisieActuelle: String = "0"
     
     //comment les boutons seront classer
     @State private var clavier: [[CalculatorButtons]] = [
@@ -33,20 +34,18 @@ struct KeyboardView: View {
             [.zero, .doubleZero, .decimal, .equal]
         ]
     
-    var body: some View {
-        GeometryReader { geo in
-            //boutons
-            let spacing: CGFloat = 5
-            let buttonWidth = (geo.size.width - spacing * 5) / 4
+    //historique
+    @State private var historique: [calculatorModel] = []
     
+    var body: some View {
             VStack {
                 
                 VStack {
                     HStack {
                         //le calcul d'avant
                         Spacer()
-                        if let previousOperator1 = previousOperand1 {
-                            Text(previousOperator1)
+                        if let op1 = op1 {
+                            Text(op1)
                                 .bold()
                                 .foregroundStyle(.black)
                                 .font(.system(size: 25))
@@ -59,8 +58,8 @@ struct KeyboardView: View {
                                 .foregroundStyle(.red)
                         }
                         
-                        if let previousOperator2 = previousOperand2 {
-                            Text(previousOperator2)
+                        if let op2 = op2 {
+                            Text(op2)
                                 .bold()
                                 .foregroundStyle(.black)
                                 .font(.system(size: 25))
@@ -70,8 +69,8 @@ struct KeyboardView: View {
                                 .foregroundStyle(.red)
                         }
                         
-                        if let previousResult = previousResult {
-                            Text(previousResult)
+                        if let result = result {
+                            Text(result)
                                 .bold()
                                 .foregroundStyle(.black)
                                 .font(.system(size: 25))
@@ -84,12 +83,8 @@ struct KeyboardView: View {
                         Spacer()
                         Text(saisieActuelle)
                             .bold()
+                            .foregroundStyle(.black)
                             .font(saisieActuelle.count > 7 ? .system(size: 60) : .system(size: 75))
-                    }
-                    .onChange(of: saisieActuelle) {
-                        if saisieActuelle.isEmpty {
-                            saisieActuelle = "0"
-                        }
                     }
                 }
                 
@@ -98,11 +93,11 @@ struct KeyboardView: View {
                         ForEach(row, id: \.self) { column in
                             Button {
                                 haptic.toggle()
-                                //work(column)
+                                work(column)
                             }label: {
                                 RoundedRectangle(cornerRadius: 15)
                                     .fill(column.getColor)
-                                    .frame(width: buttonWidth, height: 75)
+                                    .frame(width: self.buttonWidth(item: column), height: self.buttonHeight(item: column))
                                     .overlay(
                                         Text(column.rawValue)
                                             .foregroundStyle(.white)
@@ -117,13 +112,117 @@ struct KeyboardView: View {
                     }
                 }
             }
+        .onChange(of: saisieActuelle) {
+            if saisieActuelle.isEmpty {
+                saisieActuelle = "0"
+            }
         }
         .ignoresSafeArea()
         .padding(.horizontal)
     }
     
-    //une grosse fonction qui va se charger de tout
+    private func buttonWidth(item: CalculatorButtons) -> CGFloat {
+        return (UIScreen.main.bounds.width - (5 * 12)) / 4
+    }
     
+    private func buttonHeight(item: CalculatorButtons) -> CGFloat {
+        return (UIScreen.main.bounds.width - (5 * 12)) / 4
+    }
+    
+    //une grosse fonction qui va se charger de tout
+    func work(_ button: CalculatorButtons) {
+        if button.isNumber {
+            if saisieActuelle == result {
+                //sauvegarde de l'ancien resultat
+                previousOperand1 = op1!
+                previousOperand2 = op2!
+                previousResult = result!
+                currentOperation = nil
+                op1 = nil
+                op2 = nil
+                result = nil
+                saisieActuelle = "0"
+            }
+            write(button)
+        } else if button.isOperator {
+            if op1 == nil {
+                op1 = saisieActuelle
+                currentOperation = button
+                previousOperand1 = op1!
+                saisieActuelle = "0"
+            } else if let operand1 = Double(op1 ?? ""),
+                      let operand2 = Double(saisieActuelle),
+                      let operation = currentOperation, result == nil {
+                
+                //on fait le premier calcul
+                let newOperation = calculatorModel(operand1: operand1, operand2: operand2, theOperator: operation)
+                result = newOperation.doTheMath()
+                //sauvegarde
+                historique.append(newOperation)
+                
+                //sauvegarde du calcul precedent
+                previousOperand1 = String(operand1)
+                previousOperand2 = String(operand2)
+                previousResult = result!
+                
+                op1 = result
+                result = nil
+                currentOperation = button
+                saisieActuelle = "0"
+                op2 = nil
+            } else if let operand1 = Double(op1 ?? ""), let result = result {
+                //soit le resultat sera l'op1
+                op1 = result
+                op2 = nil
+                currentOperation = button
+                saisieActuelle = "0"
+            }
+            result = nil
+        } else if button == .erase {
+            if !saisieActuelle.isEmpty {
+                saisieActuelle.removeLast()
+                if saisieActuelle.isEmpty {
+                    saisieActuelle = "0"
+                }
+            }
+        } else if button == .clear {
+            if saisieActuelle != "0" {
+                saisieActuelle = "0"
+                op1 = nil
+                op2 = nil
+                currentOperation = nil
+                if let result = result {
+                    previousResult = result
+                }
+                result = nil
+            }
+        } else if button == .percent {
+            percent()
+        } else if button == .equal {
+            if let operand1 = Double(op1 ?? ""),
+               let operation = currentOperation, result == nil {
+                op2 = saisieActuelle
+                
+                //creation d'une nouvelle instance de calcul
+                if let operand2 = Double(op2 ?? "") {
+                    let newOperation = calculatorModel(operand1: operand1, operand2: operand2, theOperator: operation)
+                    result = newOperation.doTheMath()
+                    saisieActuelle = (result ?? "0")
+                }
+            } else if let resultat = Double(result ?? ""), var operand1 = Double(op1 ?? ""), let operand2 = Double(op2 ?? ""), let operation = currentOperation {
+                operand1 = resultat
+                op1 = result
+                
+                let newOperation = calculatorModel(operand1: operand1, operand2: operand2, theOperator: operation)
+                result = newOperation.doTheMath()
+                saisieActuelle = (result ?? "0")
+            }
+        } else if button == .decimal {
+            if !saisieActuelle.contains(".") {
+                saisieActuelle.append(".")
+            }
+        }
+    }
     
     func write(_ button: CalculatorButtons) {
         if saisieActuelle.count < 8 {
@@ -134,8 +233,17 @@ struct KeyboardView: View {
             }
         }
     }
+    
+    func percent() -> Void {
+            if saisieActuelle != "0" {
+                if var nombre = Double(saisieActuelle) {
+                    nombre /= 100
+                    saisieActuelle = String(nombre)
+                }
+            }
+        }
 }
 
 #Preview {
-    KeyboardView(previousOperand1: .constant("2"), previousOperand2: .constant("4"), previousResult: .constant("6"), operand1: .constant(nil), operand2: .constant(nil), result: .constant(nil), currentOperation: .constant(.add), saisieActuelle: .constant("0"))
+    KeyboardView()
 }

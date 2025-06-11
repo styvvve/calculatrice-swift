@@ -1,15 +1,16 @@
 //
 //  Data.swift
-//  Calculatrice
+//  Opero
 //
-//  Created by NGUELE Steve  on 16/05/2025.
+//  Created by NGUELE Steve  on 11/06/2025.
 //
-
-import Foundation
 
 //on utilise UserDefaults pour la persistance de données
 
 //MARK: l'historique des calculs
+import Foundation
+import SwiftUI 
+
 func saveCalcHistory(_ history: [String]) {
     UserDefaults.standard.set(history, forKey: "calcHistory")
 }
@@ -30,11 +31,3 @@ func limitTheSizeOfCalcHistory() {
     }
     saveCalcHistory(history)
 }
-
-//MARK: l'historique des conversions de devises
-
-
-
-//MARK: Les preferences de l'utilisateur
-
-
