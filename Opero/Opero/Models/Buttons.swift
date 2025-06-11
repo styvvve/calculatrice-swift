@@ -1,8 +1,8 @@
 //
-//  CalculatorModel.swift
-//  Calculatrice
+//  Buttons.swift
+//  Opero
 //
-//  Created by NGUELE Steve  on 12/05/2025.
+//  Created by NGUELE Steve  on 27/05/2025.
 //
 
 import Foundation
@@ -49,7 +49,7 @@ enum CalculatorButtons: String {
     var isNumber: Bool {
         switch self {
         case .doubleZero, .zero, .one, .two, .three, .four, .five, .six, .seven, .eight, .nine: return true
-        default: return false 
+        default: return false
         }
     }
 }

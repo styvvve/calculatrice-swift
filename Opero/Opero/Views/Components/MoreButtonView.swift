@@ -1,15 +1,15 @@
 //
 //  MoreButtonView.swift
-//  Calculatrice
+//  Opero
 //
-//  Created by NGUELE Steve  on 18/05/2025.
+//  Created by NGUELE Steve  on 25/05/2025.
 //
 
 import SwiftUI
 
 struct MoreButtonView: View {
     
-    @Binding var haptic: Bool
+    @State private var haptic: Bool = false
     @Binding var openMoreView: Bool
     
     var body: some View {
@@ -30,13 +30,13 @@ struct MoreButtonView: View {
                         .foregroundStyle(.black)
                 }
             }
-            #if !targetEnvironment(simulator)
+#if !targetEnvironment(simulator)
             .sensoryFeedback(.impact(weight: .medium, intensity: 1), trigger: haptic)
-            #endif
+#endif
         }
     }
 }
 
 #Preview {
-    MoreButtonView(haptic: .constant(false), openMoreView: .constant(false))
+    MoreButtonView(openMoreView: .constant(false))
 }

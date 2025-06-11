@@ -1,24 +1,46 @@
 //
-//  SettingsButtonShape.swift
-//  Calculatrice
+//  SettingsShape.swift
+//  Opero
 //
-//  Created by NGUELE Steve  on 18/05/2025.
+//  Created by NGUELE Steve  on 25/05/2025.
 //
 
+import Foundation
 import SwiftUI
 
-struct SettingsButtonShape: View {
-    
-    @State private var rotation: Double = 0
-    @Binding var width: CGFloat
-    @Binding var height: CGFloat
-    
-    var body: some View {
-        VStack {
-            
-        }
+//quelques extensions pour permettre à la shape d'exister
+extension CGPoint {
+    func vector(to point: CGPoint) -> CGVector {
+        CGVector(dx: point.x - self.x, dy: point.y - self.y)
     }
 }
+
+extension CGVector {
+    var length: CGFloat {
+        sqrt(dx * dx + dy * dy)
+    }
+    
+    var normalized: CGVector {
+        let len = length
+        return len == 0 ? .zero : CGVector(dx: dx / len, dy: dy / len)
+    }
+    
+    func scaled(by scale: CGFloat) -> CGVector {
+        CGVector(dx: dx * scale, dy: dy * scale)
+    }
+    
+    func toPoint() -> CGPoint {
+        CGPoint(x: dx, y: dy)
+    }
+}
+
+extension CGFloat {
+    var normalized: CGFloat {
+        if self == 0 { return 0 }
+        return self / abs(self)
+    }
+}
+
 
 struct SettingsShape: Shape {
     var cornerRadius: CGFloat
@@ -65,8 +87,4 @@ struct SettingsShape: Shape {
         path.closeSubpath()
         return path
     }
-}
-
-#Preview {
-    SettingsButtonShape(width: .constant(200), height: .constant(200))
 }
