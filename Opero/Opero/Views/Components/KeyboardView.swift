@@ -35,7 +35,7 @@ struct KeyboardView: View {
         ]
     
     //historique
-    @State private var historique: [calculatorModel] = []
+    @State private var historique: [CalculatorModel] = []
     
     var body: some View {
             VStack {
@@ -155,8 +155,9 @@ struct KeyboardView: View {
                       let operation = currentOperation, result == nil {
                 
                 //on fait le premier calcul
-                let newOperation = calculatorModel(operand1: operand1, operand2: operand2, theOperator: operation)
+                let newOperation = CalculatorModel(operand1: operand1, operand2: operand2, theOperator: operation.rawValue)
                 result = newOperation.doTheMath()
+                
                 //sauvegarde
                 historique.append(newOperation)
                 
@@ -205,7 +206,7 @@ struct KeyboardView: View {
                 
                 //creation d'une nouvelle instance de calcul
                 if let operand2 = Double(op2 ?? "") {
-                    let newOperation = calculatorModel(operand1: operand1, operand2: operand2, theOperator: operation)
+                    let newOperation = CalculatorModel(operand1: operand1, operand2: operand2, theOperator: operation.rawValue)
                     result = newOperation.doTheMath()
                     saisieActuelle = (result ?? "0")
                 }
@@ -213,7 +214,7 @@ struct KeyboardView: View {
                 operand1 = resultat
                 op1 = result
                 
-                let newOperation = calculatorModel(operand1: operand1, operand2: operand2, theOperator: operation)
+                let newOperation = CalculatorModel(operand1: operand1, operand2: operand2, theOperator: operation.rawValue)
                 result = newOperation.doTheMath()
                 saisieActuelle = (result ?? "0")
             }

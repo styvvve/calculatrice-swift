@@ -6,15 +6,17 @@
 //
 
 import Foundation
+import SwiftData
 
 
-class calculatorModel {
+@Model
+class CalculatorModel {
     var operand1: Double
     var operand2: Double
-    var theOperator: CalculatorButtons
+    var theOperator: String
     var result: Double?
     
-    init(operand1: Double, operand2: Double, theOperator: CalculatorButtons) {
+    init(operand1: Double, operand2: Double, theOperator: String) {
         self.operand1 = operand1
         self.operand2 = operand2
         self.theOperator = theOperator
@@ -23,22 +25,22 @@ class calculatorModel {
     func doTheMath() -> String {
         var resultat: String = ""
         switch theOperator {
-        case .multiply:
+        case "x":
             result = Double(operand1)*Double(operand2)
             if let result = result {
                 resultat = result.truncatingRemainder(dividingBy: 1) == 0 ? String(Int(result)) : String(format: "%.2f", result)
             }
-        case .plus:
+        case "+":
             result = Double(operand1)+Double(operand2)
             if let result = result {
                 resultat = result.truncatingRemainder(dividingBy: 1) == 0 ? String(Int(result)) : String(format: "%.2f", result)
             }
-        case .minus:
+        case "-":
             result = Double(operand1)-Double(operand2)
             if let result = result {
                 resultat = result.truncatingRemainder(dividingBy: 1) == 0 ? String(Int(result)) : String(format: "%.2f", result)
             }
-        case .divide:
+        case "/":
             //verif necessaire
             if operand2 == 0 {
                 return "Error"
@@ -47,9 +49,7 @@ class calculatorModel {
             if let result = result {
                 resultat = result.truncatingRemainder(dividingBy: 1) == 0 ? String(Int(result)) : String(format: "%.2f", result)
             }
-        default:
-            //rien
-            break
+        default: break
         }
         result = Double(resultat)
         return resultat

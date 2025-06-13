@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct OperoApp: App {
+    
+    @AppStorage("DarkMode") private var isDarkMode: Bool = false
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(isDarkMode ? .dark : .light)
         }
+        .modelContainer(for: CalculatorModel.self)
     }
 }
