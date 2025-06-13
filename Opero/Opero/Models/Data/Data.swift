@@ -10,24 +10,6 @@
 //MARK: l'historique des calculs
 import Foundation
 import SwiftUI 
+import SwiftData
 
-func saveCalcHistory(_ history: [String]) {
-    UserDefaults.standard.set(history, forKey: "calcHistory")
-}
 
-func loadCalcHistory() -> [String] {
-    return UserDefaults.standard.stringArray(forKey: "calcHistory") ?? []
-}
-
-func clearCalcHistory() {
-    UserDefaults.standard.removeObject(forKey: "calcHistory")
-}
-
-//limiter la taille de l'historique
-func limitTheSizeOfCalcHistory() {
-    var history = loadCalcHistory()
-    if history.count > 30 {
-        history.removeFirst()
-    }
-    saveCalcHistory(history)
-}

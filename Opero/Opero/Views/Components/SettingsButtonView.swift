@@ -18,7 +18,10 @@ struct SettingsButtonView: View {
         Button {
             isRotated.toggle()
             haptic.toggle()
-            openSettingsView.toggle()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                openSettingsView.toggle()
+                print(openSettingsView)
+            }
         } label : {
            Image("setting")
                 .resizable()
