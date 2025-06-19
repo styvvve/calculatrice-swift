@@ -25,6 +25,9 @@ struct KeyboardView: View {
     
     @State private var saisieActuelle: String = "0"
     
+    @AppStorage("DarkMode") private var isDarkMode: Bool = false
+
+    
     //comment les boutons seront classer
     @State private var clavier: [[CalculatorButtons]] = [
             [.clear, .erase, .percent, .divide],
@@ -34,8 +37,8 @@ struct KeyboardView: View {
             [.zero, .doubleZero, .decimal, .equal]
         ]
     
-    //historique
-    @State private var historique: [CalculatorModel] = []
+    //Swiftdata
+    @Environment(\.modelContext) private var context
     
     var body: some View {
             VStack {
@@ -47,7 +50,7 @@ struct KeyboardView: View {
                         if let op1 = op1 {
                             Text(op1)
                                 .bold()
-                                .foregroundStyle(.black)
+                                .foregroundStyle(isDarkMode ? .white : .black)
                                 .font(.system(size: 25))
                         }
                         
@@ -61,7 +64,7 @@ struct KeyboardView: View {
                         if let op2 = op2 {
                             Text(op2)
                                 .bold()
-                                .foregroundStyle(.black)
+                                .foregroundStyle(isDarkMode ? .white : .black)
                                 .font(.system(size: 25))
                             Text(CalculatorButtons.equal.rawValue)
                                 .bold()
@@ -72,7 +75,7 @@ struct KeyboardView: View {
                         if let result = result {
                             Text(result)
                                 .bold()
-                                .foregroundStyle(.black)
+                                .foregroundStyle(isDarkMode ? .white : .black)
                                 .font(.system(size: 25))
                         }
                     }
@@ -83,7 +86,7 @@ struct KeyboardView: View {
                         Spacer()
                         Text(saisieActuelle)
                             .bold()
-                            .foregroundStyle(.black)
+                            .foregroundStyle(isDarkMode ? .white : .black)
                             .font(saisieActuelle.count > 7 ? .system(size: 60) : .system(size: 75))
                     }
                 }
@@ -96,11 +99,11 @@ struct KeyboardView: View {
                                 work(column)
                             }label: {
                                 RoundedRectangle(cornerRadius: 15)
-                                    .fill(column.getColor)
+                                    .fill(column.getColor(darkMode: isDarkMode))
                                     .frame(width: self.buttonWidth(item: column), height: self.buttonHeight(item: column))
                                     .overlay(
                                         Text(column.rawValue)
-                                            .foregroundStyle(.white)
+                                            .foregroundStyle(isDarkMode ? .black : .white)
                                             .bold()
                                             .font(.title)
                                     )
@@ -159,7 +162,7 @@ struct KeyboardView: View {
                 result = newOperation.doTheMath()
                 
                 //sauvegarde
-                historique.append(newOperation)
+                context.insert(newOperation)
                 
                 //sauvegarde du calcul precedent
                 previousOperand1 = String(operand1)
@@ -171,7 +174,7 @@ struct KeyboardView: View {
                 currentOperation = button
                 saisieActuelle = "0"
                 op2 = nil
-            } else if let operand1 = Double(op1 ?? ""), let result = result {
+            } else if op1 != nil, let result = result {
                 //soit le resultat sera l'op1
                 op1 = result
                 op2 = nil
@@ -209,6 +212,9 @@ struct KeyboardView: View {
                     let newOperation = CalculatorModel(operand1: operand1, operand2: operand2, theOperator: operation.rawValue)
                     result = newOperation.doTheMath()
                     saisieActuelle = (result ?? "0")
+                    
+                    //sauvegarde
+                    context.insert(newOperation)
                 }
             } else if let resultat = Double(result ?? ""), var operand1 = Double(op1 ?? ""), let operand2 = Double(op2 ?? ""), let operation = currentOperation {
                 operand1 = resultat
@@ -216,6 +222,9 @@ struct KeyboardView: View {
                 
                 let newOperation = CalculatorModel(operand1: operand1, operand2: operand2, theOperator: operation.rawValue)
                 result = newOperation.doTheMath()
+                
+                //sauvegarde
+                context.insert(newOperation)
                 saisieActuelle = (result ?? "0")
             }
         } else if button == .decimal {

@@ -12,6 +12,8 @@ struct TopBarView: View {
     @Binding var openMoreView: Bool
     @Binding var openSettingsView: Bool
     
+    @AppStorage("DarkMode") private var isDarkMode: Bool = false
+    
     var body: some View {
         HStack {
             MoreButtonView(openMoreView: $openMoreView)

@@ -13,6 +13,9 @@ struct SettingsButtonView: View {
     @State private var haptic: Bool = false
     @Binding var openSettingsView: Bool
     
+    @AppStorage("DarkMode") private var isDarkMode: Bool = false
+
+    
     
     var body: some View {
         Button {
@@ -23,7 +26,7 @@ struct SettingsButtonView: View {
                 print(openSettingsView)
             }
         } label : {
-           Image("setting")
+            Image(isDarkMode ? "settingwhite" : "settingdark")
                 .resizable()
                 .scaledToFit()
                 .rotationEffect(.degrees(isRotated ? 180 : 0))

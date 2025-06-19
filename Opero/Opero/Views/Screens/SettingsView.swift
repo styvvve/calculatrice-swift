@@ -33,7 +33,7 @@ struct SettingsView: View {
                 //effacer l'historique de calculs
                 Rectangle()
                     .foregroundStyle(.clear)
-                    .frame(width: .infinity, height: 10)
+                    .frame(height: 10)
                 
                 Button {
                     adviceBeforeDelete.toggle()
