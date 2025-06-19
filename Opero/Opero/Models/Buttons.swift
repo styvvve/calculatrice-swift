@@ -30,12 +30,21 @@ enum CalculatorButtons: String {
     case percent = "%"
     case divide = "/"
     
-    var getColor: Color {
-        switch self {
-        case .clear: return .red
-        case .erase: return .red.opacity(0.5)
-        case .percent, .divide, .multiply, .minus, .plus, .equal: return .gray
-        default: return .black
+    func getColor(darkMode: Bool) -> Color {
+        if darkMode {
+            switch self {
+            case .clear: return .red
+            case .erase: return .red.opacity(0.5)
+            case .percent, .divide, .multiply, .minus, .plus, .equal: return .gray
+            default: return .white
+            }
+        } else {
+            switch self {
+            case .clear: return .red
+            case .erase: return .red.opacity(0.5)
+            case .percent, .divide, .multiply, .minus, .plus, .equal: return .gray
+            default: return .black
+            }
         }
     }
     
