@@ -9,14 +9,13 @@ import SwiftUI
 
 struct TopBarView: View {
     
-    @Binding var openMoreView: Bool
     @Binding var openSettingsView: Bool
     
     @AppStorage("DarkMode") private var isDarkMode: Bool = false
     
     var body: some View {
         HStack {
-            MoreButtonView(openMoreView: $openMoreView)
+            
             Spacer()
             SettingsButtonView(openSettingsView: $openSettingsView)
         }
@@ -25,5 +24,5 @@ struct TopBarView: View {
 }
 
 #Preview {
-    TopBarView(openMoreView: .constant(false), openSettingsView: .constant(false))
+    TopBarView(openSettingsView: .constant(false))
 }

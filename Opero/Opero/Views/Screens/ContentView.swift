@@ -17,7 +17,7 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             VStack {
-                TopBarView(openMoreView: $openMoreView, openSettingsView: $openSettingsView)
+                TopBarView(openSettingsView: $openSettingsView)
                 
                 Spacer()
                 
@@ -27,7 +27,7 @@ struct ContentView: View {
             }
             .preferredColorScheme(isDarkMode ? .dark : .light)
             
-            HistoryView(isShowing: $openMoreView)
+            /*HistoryView(isShowing: $openMoreView)
                 .offset(x: openMoreView ? 0 : -300)
                 .animation(.easeInOut(duration: 0.3), value: openMoreView)
                 .gesture(
@@ -39,7 +39,7 @@ struct ContentView: View {
                                 }
                             }
                         }
-                )
+                ) */
         }
         .fullScreenCover(isPresented: $openSettingsView) {
             SettingsView()
