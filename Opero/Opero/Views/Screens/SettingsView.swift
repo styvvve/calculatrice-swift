@@ -35,7 +35,7 @@ struct SettingsView: View {
                     .foregroundStyle(.clear)
                     .frame(height: 10)
                 
-                Button {
+                /*Button {
                     adviceBeforeDelete.toggle()
                 } label: {
                     Text("Effacer l'historique de calculs")
@@ -44,7 +44,7 @@ struct SettingsView: View {
                         .foregroundStyle(.white)
                         .background(Color.red)
                         .clipShape(Capsule())
-                }
+                }*/
                 
                 Spacer()
             }
@@ -62,7 +62,7 @@ struct SettingsView: View {
                     }
                 }
             }
-            .alert("Supprimer l'historique de calculs" ,isPresented: $adviceBeforeDelete) {
+            /*.alert("Supprimer l'historique de calculs" ,isPresented: $adviceBeforeDelete) {
                 Button("Annuler", role: .cancel) { }
                 Button("Confirmer", role: .destructive) {
                     for item in calcHistory {
@@ -71,7 +71,7 @@ struct SettingsView: View {
                 }
             } message: {
                 Text("Cette action est irréversible.")
-            }
+            }*/
         }
     }
 }
