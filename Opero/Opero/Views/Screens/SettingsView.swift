@@ -7,6 +7,8 @@
 
 import SwiftUI
 import SwiftData
+import WebKit
+import WebKit
 
 struct SettingsView: View {
     
@@ -14,6 +16,9 @@ struct SettingsView: View {
     
     //tous les parametres changeables
     @AppStorage("DarkMode") private var isDarkMode: Bool = false
+    
+    //affichage de la page web
+    @State private var isShowingSheet = false
     
     
     //historique de calculs
@@ -35,6 +40,20 @@ struct SettingsView: View {
                     .foregroundStyle(.clear)
                     .frame(height: 10)
                 
+                Button {
+                    isShowingSheet.toggle()
+                } label: {
+                    HStack {
+                        Text("Aller sur la page de l'application")
+                            .bold()
+                        Image(systemName: "rectangle.portrait.and.arrow.right")
+                    }
+                    .padding()
+                    .foregroundStyle(.white)
+                    .background(.blue)
+                    .clipShape(Capsule())
+                }
+                
                 /*Button {
                     adviceBeforeDelete.toggle()
                 } label: {
@@ -47,6 +66,20 @@ struct SettingsView: View {
                 }*/
                 
                 Spacer()
+            }
+            .sheet(isPresented: $isShowingSheet) {
+                VStack {
+                    WebViewCompat(url: URL(string: "https://flawless-comma-886.notion.site/Opero-La-calculatrice-nouvelle-g-n-ration-2a0224981367806fbaffd3bbb9da35cb?source=copy_link")!)
+                        .ignoresSafeArea()
+                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Fermer") {
+                            isShowingSheet.toggle()
+                        }
+                        .bold()
+                    }
+                }
             }
             .preferredColorScheme(isDarkMode ? .dark : .light)
             .navigationTitle(Text("Paramètres"))
@@ -74,6 +107,32 @@ struct SettingsView: View {
             }*/
         }
     }
+}
+
+// MARK: WEBVIEW
+struct WebViewCompat: View {
+    let url: URL
+    
+    var body: some View {
+        if #available(iOS 26.0, *) {
+            WebView(url: url)
+        }else {
+            LegacyWebView(url: url)
+        }
+    }
+}
+
+@available(iOS, introduced: 13.0, deprecated: 18.0, message: "Use native WebView instead")
+struct LegacyWebView: UIViewRepresentable {
+    let url: URL
+    
+    func makeUIView(context: Context) -> WKWebView {
+        let webView = WKWebView()
+        webView.load(URLRequest(url: url))
+        return webView
+    }
+    
+    func updateUIView(_ uiView: WKWebView, context: Context) {}
 }
 
 #Preview {
