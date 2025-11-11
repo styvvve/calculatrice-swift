@@ -70,15 +70,14 @@ struct SettingsView: View {
             .sheet(isPresented: $isShowingSheet) {
                 VStack {
                     WebViewCompat(url: URL(string: "https://flawless-comma-886.notion.site/Opero-La-calculatrice-nouvelle-g-n-ration-2a0224981367806fbaffd3bbb9da35cb?source=copy_link")!)
-                        .ignoresSafeArea()
-                }
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button("Fermer") {
-                            isShowingSheet.toggle()
+                        .toolbar {
+                            ToolbarItem(placement: .topBarTrailing) {
+                                Button("Fermer") {
+                                    isShowingSheet.toggle()
+                                }
+                                .bold()
+                            }
                         }
-                        .bold()
-                    }
                 }
             }
             .preferredColorScheme(isDarkMode ? .dark : .light)
