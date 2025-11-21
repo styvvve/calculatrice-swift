@@ -15,34 +15,39 @@ struct ContentView: View {
     @AppStorage("DarkMode") private var isDarkMode: Bool = false
     
     var body: some View {
-        ZStack {
-            VStack {
-                TopBarView(openSettingsView: $openSettingsView)
+        GeometryReader { geo in
+            ZStack {
+                VStack {
+                    BannerAdView(width: geo.size.width)
+                        .frame(width: geo.size.width, height: 50, alignment: .center)
+                        .background(.ultraThinMaterial)
+                        .padding(.bottom)
+                    TopBarView(openSettingsView: $openSettingsView)
+                    
+                    Spacer()
+                    
+                    
+                    KeyboardView()
+                }
+                .preferredColorScheme(isDarkMode ? .dark : .light)
                 
-                Spacer()
-                
-                
-                KeyboardView()
-                
-            }
-            .preferredColorScheme(isDarkMode ? .dark : .light)
-            
-            /*HistoryView(isShowing: $openMoreView)
-                .offset(x: openMoreView ? 0 : -300)
-                .animation(.easeInOut(duration: 0.3), value: openMoreView)
-                .gesture(
-                    DragGesture()
-                        .onEnded { value in
-                            if value.translation.width < -50 {
-                                withAnimation {
-                                    openMoreView.toggle()
+                /*HistoryView(isShowing: $openMoreView)
+                    .offset(x: openMoreView ? 0 : -300)
+                    .animation(.easeInOut(duration: 0.3), value: openMoreView)
+                    .gesture(
+                        DragGesture()
+                            .onEnded { value in
+                                if value.translation.width < -50 {
+                                    withAnimation {
+                                        openMoreView.toggle()
+                                    }
                                 }
                             }
-                        }
-                ) */
-        }
-        .fullScreenCover(isPresented: $openSettingsView) {
-            SettingsView()
+                    ) */
+            }
+            .fullScreenCover(isPresented: $openSettingsView) {
+                SettingsView()
+            }
         }
     }
 }
