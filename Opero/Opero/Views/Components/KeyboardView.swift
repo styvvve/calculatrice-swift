@@ -72,12 +72,12 @@ struct KeyboardView: View {
                                 .foregroundStyle(.red)
                         }
                         
-                        if let result = result {
+                        /*if let result = result {
                             Text(result)
                                 .bold()
                                 .foregroundStyle(isDarkMode ? .white : .black)
                                 .font(.system(size: 25))
-                        }
+                        }*/
                     }
                     
                     
