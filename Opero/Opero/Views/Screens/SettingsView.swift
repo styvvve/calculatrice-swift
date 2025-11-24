@@ -39,31 +39,34 @@ struct SettingsView: View {
                 Rectangle()
                     .foregroundStyle(.clear)
                     .frame(height: 10)
-                
-                Button {
-                    isShowingSheet.toggle()
-                } label: {
-                    HStack {
-                        Text("Aller sur la page de l'application")
-                            .bold()
-                        Image(systemName: "rectangle.portrait.and.arrow.right")
-                    }
-                    .padding()
-                    .foregroundStyle(.white)
-                    .background(.blue)
-                    .clipShape(Capsule())
-                }
-                
-                /*Button {
-                    adviceBeforeDelete.toggle()
-                } label: {
-                    Text("Effacer l'historique de calculs")
+                HStack {
+                    Button {
+                        isShowingSheet.toggle()
+                    } label: {
+                        HStack {
+                            Text("Aller sur la page de l'application")
+                                .bold()
+                            Image(systemName: "rectangle.portrait.and.arrow.right")
+                        }
                         .padding()
-                        .bold()
                         .foregroundStyle(.white)
-                        .background(Color.red)
+                        .background(.blue)
                         .clipShape(Capsule())
-                }*/
+                        
+                    }
+                    
+                    
+                    Button {
+                        adviceBeforeDelete.toggle()
+                    } label: {
+                        Text("Effacer l'historique de calculs")
+                            .padding()
+                            .bold()
+                            .foregroundStyle(.white)
+                            .background(Color.red)
+                            .clipShape(Capsule())
+                    }
+                }
                 
                 Spacer()
             }
@@ -94,7 +97,7 @@ struct SettingsView: View {
                     }
                 }
             }
-            /*.alert("Supprimer l'historique de calculs" ,isPresented: $adviceBeforeDelete) {
+            .alert("Supprimer l'historique de calculs" ,isPresented: $adviceBeforeDelete) {
                 Button("Annuler", role: .cancel) { }
                 Button("Confirmer", role: .destructive) {
                     for item in calcHistory {
@@ -103,7 +106,7 @@ struct SettingsView: View {
                 }
             } message: {
                 Text("Cette action est irréversible.")
-            }*/
+            }
         }
     }
 }

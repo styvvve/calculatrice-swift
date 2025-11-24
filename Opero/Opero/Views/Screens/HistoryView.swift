@@ -37,7 +37,9 @@ struct HistoryView: View {
                             .foregroundStyle(isDarkMode ? .white : .black)
                             .padding()
                         ForEach(historiques, id: \.self) { calcul in
-                            
+                            if let result = calcul.result {
+                                Text("\(calcul.operand1) \(calcul.theOperator) \(calcul.operand2) = \(result))")
+                            }
                         }
                         
                         

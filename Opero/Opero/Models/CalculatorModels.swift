@@ -15,11 +15,13 @@ class CalculatorModel {
     var operand2: Double
     var theOperator: String
     var result: Double?
+    var date: Date
     
     init(operand1: Double, operand2: Double, theOperator: String) {
         self.operand1 = operand1
         self.operand2 = operand2
         self.theOperator = theOperator
+        self.date = Date.now
     }
     
     func doTheMath() -> String {

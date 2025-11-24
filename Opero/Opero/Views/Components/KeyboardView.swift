@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct KeyboardView: View {
     
@@ -39,6 +40,7 @@ struct KeyboardView: View {
     
     //Swiftdata
     @Environment(\.modelContext) private var context
+    @Query private var operations: [CalculatorModel]
     
     var body: some View {
             VStack {
@@ -161,6 +163,10 @@ struct KeyboardView: View {
                 let newOperation = CalculatorModel(operand1: operand1, operand2: operand2, theOperator: operation.rawValue)
                 result = newOperation.doTheMath()
                 
+                if let valeur = result {
+                    newOperation.result = Double(valeur)
+                }
+                
                 //sauvegarde
                 context.insert(newOperation)
                 
@@ -214,6 +220,10 @@ struct KeyboardView: View {
                     saisieActuelle = (result ?? "0")
                     
                     //sauvegarde
+                    if let result = Double(result ?? "") {
+                        newOperation.result = result
+                    }
+                    
                     context.insert(newOperation)
                 }
             } else if let resultat = Double(result ?? ""), var operand1 = Double(op1 ?? ""), let operand2 = Double(op2 ?? ""), let operation = currentOperation {
@@ -224,6 +234,10 @@ struct KeyboardView: View {
                 result = newOperation.doTheMath()
                 
                 //sauvegarde
+                if let result = Double(result ?? "") {
+                    newOperation.result = result
+                }
+                
                 context.insert(newOperation)
                 saisieActuelle = (result ?? "0")
             }

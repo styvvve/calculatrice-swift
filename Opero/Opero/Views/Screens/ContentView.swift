@@ -22,7 +22,7 @@ struct ContentView: View {
                         .frame(width: geo.size.width, height: 50, alignment: .center)
                         .background(.ultraThinMaterial)
                         .padding(.bottom)
-                    TopBarView(openSettingsView: $openSettingsView)
+                    TopBarView(openSettingsView: $openSettingsView, sideBarView: $openMoreView)
                     
                     Spacer()
                     
