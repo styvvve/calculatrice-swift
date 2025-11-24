@@ -19,38 +19,29 @@ struct HistoryView: View {
     
     
     var body: some View {
-        ZStack {
-            if isShowing {
-                Rectangle()
-                    .opacity(0.3)
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        withAnimation {
-                            isShowing.toggle()
-                        }
+        VStack(alignment: .leading, spacing: 18) {
+            Text("Historique des calculs")
+                .font(.headline)
+                .foregroundStyle(isDarkMode ? .white : .black)
+                .padding()
+            
+            VStack(alignment: .leading, spacing: 10) {
+                ForEach(historiques, id: \.self) { calcul in
+                    if let result = calcul.result {
+                        Text("\(calcul.operand1) \(calcul.theOperator) \(calcul.operand2) = \(result))")
                     }
-                
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("Historique des calculs")
-                            .font(.headline)
-                            .foregroundStyle(isDarkMode ? .white : .black)
-                            .padding()
-                        ForEach(historiques, id: \.self) { calcul in
-                            if let result = calcul.result {
-                                Text("\(calcul.operand1) \(calcul.theOperator) \(calcul.operand2) = \(result))")
-                            }
-                        }
-                        
-                        
-                        Spacer()
-                    }
-                    .padding()
-                    .background(isDarkMode ? .black : .white)
-                    .frame(width: 270, alignment: .leading)
-                    
-                    Spacer()
                 }
+            }
+            .padding()
+            
+            
+            Spacer()
+            
+            VStack(alignment: .leading, spacing: 6) {
+                Divider()
+                Text("v1.2.0")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
         }
     }

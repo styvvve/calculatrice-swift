@@ -8,7 +8,6 @@
 import SwiftUI
 import SwiftData
 import WebKit
-import WebKit
 
 struct SettingsView: View {
     
@@ -16,6 +15,7 @@ struct SettingsView: View {
     
     //tous les parametres changeables
     @AppStorage("DarkMode") private var isDarkMode: Bool = false
+    @AppStorage("Haptics") private var areHapticsActivated: Bool = true
     
     //affichage de la page web
     @State private var isShowingSheet = false
@@ -34,6 +34,23 @@ struct SettingsView: View {
                 Toggle("Thème", isOn: $isDarkMode)
                     .padding()
                     .bold()
+                
+                Toggle("Vibrations", isOn: $areHapticsActivated)
+                    .padding()
+                    .bold()
+                
+                Button {
+                    //rechercher ds l'app store
+                } label: {
+                    HStack {
+                        Text("Restaurer les achats")
+                        Spacer()
+                        Image(systemName: "arrow.right")
+                    }
+                    .padding()
+                    .foregroundStyle(isDarkMode ? .white : .black)
+                    .bold()
+                }
                 
                 //effacer l'historique de calculs
                 Rectangle()
@@ -66,6 +83,24 @@ struct SettingsView: View {
                             .background(Color.red)
                             .clipShape(Capsule())
                     }
+                }
+                
+                Rectangle()
+                    .foregroundStyle(.clear)
+                    .frame(height: 10)
+                
+                Button {
+                    
+                } label: {
+                    HStack {
+                        Text("Supprimer les pubs : 1,99€")
+                            .bold()
+                    }
+                    .padding()
+                    .foregroundStyle(.white)
+                    .background(.green)
+                    .clipShape(Capsule())
+                    
                 }
                 
                 Spacer()
