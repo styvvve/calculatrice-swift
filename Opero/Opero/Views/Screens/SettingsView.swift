@@ -30,80 +30,72 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                Toggle("Thème", isOn: $isDarkMode)
-                    .padding()
-                    .bold()
-                
-                Toggle("Vibrations", isOn: $areHapticsActivated)
-                    .padding()
-                    .bold()
-                
-                Button {
-                    //rechercher ds l'app store
-                } label: {
-                    HStack {
-                        Text("Restaurer les achats")
+            ScrollView {
+                VStack {
+                    Toggle("Thème", isOn: $isDarkMode)
+                        .padding()
+                        .bold()
+                    
+                    Toggle("Vibrations", isOn: $areHapticsActivated)
+                        .padding()
+                        .bold()
+                    
+                    Button {
+                        //rechercher ds l'app store
+                    } label: {
+                        HStack {
+                            Text("Restaurer les achats")
+                            Spacer()
+                            Image(systemName: "arrow.right")
+                        }
+                        .padding()
+                        .foregroundStyle(isDarkMode ? .white : .black)
+                        .bold()
+                    }
+                    
+                    Button {
+                        isShowingSheet.toggle()
+                    } label: {
+                        Text("Aller sur la page de l'application")
                         Spacer()
                         Image(systemName: "arrow.right")
                     }
                     .padding()
                     .foregroundStyle(isDarkMode ? .white : .black)
                     .bold()
-                }
-                
-                //effacer l'historique de calculs
-                Rectangle()
-                    .foregroundStyle(.clear)
-                    .frame(height: 10)
-                HStack {
-                    Button {
-                        isShowingSheet.toggle()
-                    } label: {
-                        HStack {
-                            Text("Aller sur la page de l'application")
-                                .bold()
-                            Image(systemName: "rectangle.portrait.and.arrow.right")
-                        }
-                        .padding()
-                        .foregroundStyle(.white)
-                        .background(.blue)
-                        .clipShape(Capsule())
-                        
-                    }
                     
                     
                     Button {
                         adviceBeforeDelete.toggle()
                     } label: {
                         Text("Effacer l'historique de calculs")
-                            .padding()
-                            .bold()
-                            .foregroundStyle(.white)
-                            .background(Color.red)
-                            .clipShape(Capsule())
-                    }
-                }
-                
-                Rectangle()
-                    .foregroundStyle(.clear)
-                    .frame(height: 10)
-                
-                Button {
-                    
-                } label: {
-                    HStack {
-                        Text("Supprimer les pubs : 1,99€")
-                            .bold()
+                        Spacer()
+                        Image(systemName: "arrow.right")
                     }
                     .padding()
-                    .foregroundStyle(.white)
-                    .background(.green)
-                    .clipShape(Capsule())
+                    .foregroundStyle(isDarkMode ? .white : .black)
+                    .bold()
                     
-                }
-                
-                Spacer()
+                    Rectangle()
+                        .foregroundStyle(.clear)
+                        .frame(height: 10)
+                    
+                    Button {
+                        
+                    } label: {
+                        HStack {
+                            Text("Supprimer les pubs : 1,99€")
+                                .bold()
+                        }
+                        .padding()
+                        .foregroundStyle(.white)
+                        .background(.green)
+                        .clipShape(Capsule())
+                        
+                    }
+                    
+                    Spacer()
+            }
             }
             .sheet(isPresented: $isShowingSheet) {
                 VStack {

@@ -34,7 +34,7 @@ struct HistoryView: View {
                     VStack(alignment: .leading, spacing: 10) {
                         ForEach(historiques, id: \.self) { calcul in
                             if let result = calcul.result {
-                                Text("\(calcul.operand1) \(calcul.theOperator) \(calcul.operand2) = \(result))")
+                                Text("\(calcul.operand1) \(calcul.theOperator) \(calcul.operand2) = \(result)")
                             }
                         }
                     }

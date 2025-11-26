@@ -22,32 +22,19 @@ struct ContentView: View {
         GeometryReader { geo in
             ZStack {
                 VStack {
-                    BannerAdView(width: geo.size.width)
-                        .frame(width: geo.size.width, height: 50, alignment: .center)
-                        .background(.ultraThinMaterial)
-                        .padding(.bottom)
                     TopBarView(openSettingsView: $openSettingsView, sideBarView: $showDrawer)
                     
                     Spacer()
                     
                     
                     KeyboardView()
+                    
+                    BannerAdView(width: geo.size.width)
+                        .frame(width: geo.size.width, height: 50, alignment: .center)
+                        .background(.ultraThinMaterial)
+                        .padding(.top)
                 }
                 .preferredColorScheme(isDarkMode ? .dark : .light)
-                
-                /*HistoryView(isShowing: $openMoreView)
-                    .offset(x: openMoreView ? 0 : -300)
-                    .animation(.easeInOut(duration: 0.3), value: openMoreView)
-                    .gesture(
-                        DragGesture()
-                            .onEnded { value in
-                                if value.translation.width < -50 {
-                                    withAnimation {
-                                        openMoreView.toggle()
-                                    }
-                                }
-                            }
-                    ) */
             }
             .fullScreenCover(isPresented: $openSettingsView) {
                 SettingsView()
