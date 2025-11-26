@@ -118,6 +118,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				AADC2DA62EC3B4BC002395C8 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				AAEC0F412ED3F95900071323 /* XCRemoteSwiftPackageReference "purchases-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = AA0DE0FC2DE3649E0017E5B7 /* Products */;
@@ -376,6 +377,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 12.13.0;
+			};
+		};
+		AAEC0F412ED3F95900071323 /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.49.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
