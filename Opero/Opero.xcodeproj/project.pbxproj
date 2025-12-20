@@ -7,17 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA15A8C02ED7E98800DEF0FC /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA15A8BF2ED7E98700DEF0FC /* StoreKit.framework */; };
 		AA4B0D0C2E2A5C00001CEE00 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = AA4B0D0B2E2A5BFE001CEE00 /* AppIcon.icon */; };
 		AADC2DA82EC3B4BC002395C8 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = AADC2DA72EC3B4BC002395C8 /* GoogleMobileAds */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AA0DE0FB2DE3649E0017E5B7 /* Opero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Opero.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA15A8BF2ED7E98700DEF0FC /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		AA4B0D0B2E2A5BFE001CEE00 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		AADC2DAA2EC3B6A5002395C8 /* Exceptions for "Opero" folder in "Opero" target */ = {
+		AA15A8BD2ED7E36E00DEF0FC /* Exceptions for "Opero" folder in "Opero" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -30,7 +32,7 @@
 		AA0DE0FD2DE3649E0017E5B7 /* Opero */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				AADC2DAA2EC3B6A5002395C8 /* Exceptions for "Opero" folder in "Opero" target */,
+				AA15A8BD2ED7E36E00DEF0FC /* Exceptions for "Opero" folder in "Opero" target */,
 			);
 			path = Opero;
 			sourceTree = "<group>";
@@ -43,6 +45,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AADC2DA82EC3B4BC002395C8 /* GoogleMobileAds in Frameworks */,
+				AA15A8C02ED7E98800DEF0FC /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +57,7 @@
 			children = (
 				AA4B0D0B2E2A5BFE001CEE00 /* AppIcon.icon */,
 				AA0DE0FD2DE3649E0017E5B7 /* Opero */,
+				AA15A8BE2ED7E98700DEF0FC /* Frameworks */,
 				AA0DE0FC2DE3649E0017E5B7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,6 +68,14 @@
 				AA0DE0FB2DE3649E0017E5B7 /* Opero.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AA15A8BE2ED7E98700DEF0FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA15A8BF2ED7E98700DEF0FC /* StoreKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
