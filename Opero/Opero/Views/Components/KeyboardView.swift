@@ -73,24 +73,10 @@ struct KeyboardView: View {
                                 .font(.system(size: 25))
                                 .foregroundStyle(.red)
                         }
-                        
-                        /*if let result = result {
-                            Text(result)
-                                .bold()
-                                .foregroundStyle(isDarkMode ? .white : .black)
-                                .font(.system(size: 25))
-                        }*/
                     }
                     
                     
                     //le calcul present
-                    HStack {
-                        Spacer()
-                        Text(saisieActuelle)
-                            .bold()
-                            .foregroundStyle(isDarkMode ? .white : .black)
-                            .font(saisieActuelle.count > 7 ? .system(size: 60) : .system(size: 75))
-                    }
                 }
                 
                 ForEach(clavier, id: \.self) { row in

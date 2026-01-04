@@ -12,10 +12,21 @@
 		AADC2DA82EC3B4BC002395C8 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = AADC2DA72EC3B4BC002395C8 /* GoogleMobileAds */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AAE717802F09FBA000881A92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA0DE0F32DE3649E0017E5B7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA0DE0FA2DE3649E0017E5B7;
+			remoteInfo = Opero;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		AA0DE0FB2DE3649E0017E5B7 /* Opero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Opero.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA15A8BF2ED7E98700DEF0FC /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		AA4B0D0B2E2A5BFE001CEE00 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
+		AAE7177C2F09FBA000881A92 /* OperoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OperoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -23,8 +34,16 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
+				OperoTest/CalculatorBasicOperationsTest.swift,
 			);
 			target = AA0DE0FA2DE3649E0017E5B7 /* Opero */;
+		};
+		AAE717862F09FBD000881A92 /* Exceptions for "Opero" folder in "OperoTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				OperoTest/CalculatorBasicOperationsTest.swift,
+			);
+			target = AAE7177B2F09FBA000881A92 /* OperoTests */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -33,8 +52,14 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				AA15A8BD2ED7E36E00DEF0FC /* Exceptions for "Opero" folder in "Opero" target */,
+				AAE717862F09FBD000881A92 /* Exceptions for "Opero" folder in "OperoTests" target */,
 			);
 			path = Opero;
+			sourceTree = "<group>";
+		};
+		AAE7177D2F09FBA000881A92 /* OperoTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = OperoTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -49,6 +74,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AAE717792F09FBA000881A92 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -57,6 +89,7 @@
 			children = (
 				AA4B0D0B2E2A5BFE001CEE00 /* AppIcon.icon */,
 				AA0DE0FD2DE3649E0017E5B7 /* Opero */,
+				AAE7177D2F09FBA000881A92 /* OperoTests */,
 				AA15A8BE2ED7E98700DEF0FC /* Frameworks */,
 				AA0DE0FC2DE3649E0017E5B7 /* Products */,
 			);
@@ -66,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				AA0DE0FB2DE3649E0017E5B7 /* Opero.app */,
+				AAE7177C2F09FBA000881A92 /* OperoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -104,6 +138,29 @@
 			productReference = AA0DE0FB2DE3649E0017E5B7 /* Opero.app */;
 			productType = "com.apple.product-type.application";
 		};
+		AAE7177B2F09FBA000881A92 /* OperoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAE717822F09FBA000881A92 /* Build configuration list for PBXNativeTarget "OperoTests" */;
+			buildPhases = (
+				AAE717782F09FBA000881A92 /* Sources */,
+				AAE717792F09FBA000881A92 /* Frameworks */,
+				AAE7177A2F09FBA000881A92 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AAE717812F09FBA000881A92 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AAE7177D2F09FBA000881A92 /* OperoTests */,
+			);
+			name = OperoTests;
+			packageProductDependencies = (
+			);
+			productName = OperoTests;
+			productReference = AAE7177C2F09FBA000881A92 /* OperoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -111,11 +168,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1630;
+				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					AA0DE0FA2DE3649E0017E5B7 = {
 						CreatedOnToolsVersion = 16.3;
+					};
+					AAE7177B2F09FBA000881A92 = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = AA0DE0FA2DE3649E0017E5B7;
 					};
 				};
 			};
@@ -138,6 +199,7 @@
 			projectRoot = "";
 			targets = (
 				AA0DE0FA2DE3649E0017E5B7 /* Opero */,
+				AAE7177B2F09FBA000881A92 /* OperoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -151,6 +213,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AAE7177A2F09FBA000881A92 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -161,7 +230,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AAE717782F09FBA000881A92 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AAE717812F09FBA000881A92 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA0DE0FA2DE3649E0017E5B7 /* Opero */;
+			targetProxy = AAE717802F09FBA000881A92 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		AA0DE1042DE364A30017E5B7 /* Debug */ = {
@@ -359,6 +443,50 @@
 			};
 			name = Release;
 		};
+		AAE717832F09FBA000881A92 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 97VPU3Y33R;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevenguele.OperoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Opero.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Opero";
+			};
+			name = Debug;
+		};
+		AAE717842F09FBA000881A92 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 97VPU3Y33R;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevenguele.OperoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Opero.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Opero";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -376,6 +504,15 @@
 			buildConfigurations = (
 				AA0DE1072DE364A30017E5B7 /* Debug */,
 				AA0DE1082DE364A30017E5B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAE717822F09FBA000881A92 /* Build configuration list for PBXNativeTarget "OperoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAE717832F09FBA000881A92 /* Debug */,
+				AAE717842F09FBA000881A92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

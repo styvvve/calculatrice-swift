@@ -29,21 +29,27 @@ final class CalculatorViewModel: ObservableObject {
     //MARK: - Internal state soit "logique métier"
     private var operand1: Double?
     private var operand2: Double?
+    private var previousOperand1: Double?
+    private var previousOperand2: Double?
     private var currentOperation: CalculatorButtons?
     private var result: Double?
     
     private let maxDigits: Int = 8
     
+    private var state: CalculatorState = .enteringFirstNumber
+    
     func input(_ button: CalculatorButtons) {
         switch button {
         case .clear:
             clear()
+            state = .enteringFirstNumber
         case .erase:
             erase()
         case .percent:
             percent()
         case .equal:
             equal()
+            state = .showingResult
         case .decimal:
             decimal()
         default:
@@ -67,6 +73,8 @@ final class CalculatorViewModel: ObservableObject {
         } else {
             display += number
         }
+        
+        updateState()
     }
     
     private func handleOperator(_ button: CalculatorButtons) {
@@ -76,6 +84,7 @@ final class CalculatorViewModel: ObservableObject {
             operand1 = currentValue
             currentOperation = button
             display = "0"
+            state = .enteringSecondNumber
             return
         }
         
@@ -84,6 +93,7 @@ final class CalculatorViewModel: ObservableObject {
             operand2 = currentValue
             do {
                 result = try compute(op1, operand2!, operation)
+                previousOperand1 = operand1
                 operand1 = result
                 display = "0"
                 currentOperation = button
@@ -127,7 +137,7 @@ final class CalculatorViewModel: ObservableObject {
         } catch {
             display = error.localizedDescription
         }
-        
+        previousOperand1 = operand1 //this for the previous display
         operand1 = result
     }
     
@@ -167,5 +177,29 @@ final class CalculatorViewModel: ObservableObject {
         formatter.minimumFractionDigits = 0
         formatter.numberStyle = .decimal
         return formatter.string(from: NSNumber(value: value)) ?? "0"
+    }
+    
+    //getters
+    var getCurrentExpression: String {
+        switch state {
+        case .enteringFirstNumber:
+            return ""
+        case .enteringSecondNumber:
+            return "\(format(operand1 ?? 0)) \(currentOperation?.rawValue ?? "")"
+        case .showingResult:
+            return "\(format(previousOperand1 ?? 0)) \(currentOperation?.rawValue ?? "") \(format(operand2 ?? 0)) = \(format(result ?? 0))"
+        }
+    }
+    
+    private func updateState() {
+        switch state {
+        case .enteringFirstNumber:
+            break
+        case .enteringSecondNumber:
+            break
+        case .showingResult:
+            state = CalculatorState.enteringFirstNumber
+            clear()
+        }
     }
 }

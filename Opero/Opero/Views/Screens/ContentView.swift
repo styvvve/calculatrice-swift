@@ -29,8 +29,8 @@ struct ContentView: View {
                     
                     KeyboardView()
                     
-                    BannerAdView(width: geo.size.width)
-                        .frame(width: geo.size.width, height: 50, alignment: .center)
+                    BannerAdView(width: (geo.size.width*50)/100)
+                        .frame(width: (geo.size.width*50)/100, height: 50, alignment: .center)
                         .background(.ultraThinMaterial)
                         .padding(.top)
                 }
@@ -51,28 +51,8 @@ struct ContentView: View {
                                 }
                             }
                     }
-                    
-                    //historiques
-                    HStack(spacing: 0) {
-                        HistoryView()
-                            .frame(width: 250)
-                            .offset(x: showDrawer ? 0 : -300)
-                            .animation(.easeInOut(duration: 0.3), value: showDrawer)
-                        Spacer()
-                    }
-                    .ignoresSafeArea()
                 }
-            }.animation(.easeInOut, value: showDrawer)
-            .gesture(
-                 DragGesture()
-                    .onEnded { value in
-                        if value.startLocation.x < 20 && value.translation.width > 100 {
-                            withAnimation {
-                                showDrawer = true
-                            }
-                        }
-                    }
-            )
+            }
         }
     }
 }
