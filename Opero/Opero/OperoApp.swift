@@ -7,11 +7,13 @@
 
 import SwiftUI
 import SwiftData
+import GoogleMobileAds
 
 @main
 struct OperoApp: App {
     
     @AppStorage("DarkMode") private var isDarkMode: Bool = false
+    @AppStorage("haptics") private var areHapticsActivated: Bool = true
     
     var body: some Scene {
         WindowGroup {

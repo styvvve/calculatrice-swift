@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct KeyboardView: View {
     
@@ -39,6 +40,7 @@ struct KeyboardView: View {
     
     //Swiftdata
     @Environment(\.modelContext) private var context
+    @Query private var operations: [CalculatorModel]
     
     var body: some View {
             VStack {
@@ -71,24 +73,10 @@ struct KeyboardView: View {
                                 .font(.system(size: 25))
                                 .foregroundStyle(.red)
                         }
-                        
-                        if let result = result {
-                            Text(result)
-                                .bold()
-                                .foregroundStyle(isDarkMode ? .white : .black)
-                                .font(.system(size: 25))
-                        }
                     }
                     
                     
                     //le calcul present
-                    HStack {
-                        Spacer()
-                        Text(saisieActuelle)
-                            .bold()
-                            .foregroundStyle(isDarkMode ? .white : .black)
-                            .font(saisieActuelle.count > 7 ? .system(size: 60) : .system(size: 75))
-                    }
                 }
                 
                 ForEach(clavier, id: \.self) { row in
@@ -96,7 +84,6 @@ struct KeyboardView: View {
                         ForEach(row, id: \.self) { column in
                             Button {
                                 haptic.toggle()
-                                work(column)
                             }label: {
                                 RoundedRectangle(cornerRadius: 15)
                                     .fill(column.getColor(darkMode: isDarkMode))
@@ -132,126 +119,6 @@ struct KeyboardView: View {
         return (UIScreen.main.bounds.width - (5 * 12)) / 4
     }
     
-    //une grosse fonction qui va se charger de tout
-    func work(_ button: CalculatorButtons) {
-        if button.isNumber {
-            if saisieActuelle == result {
-                //sauvegarde de l'ancien resultat
-                previousOperand1 = op1!
-                previousOperand2 = op2!
-                previousResult = result!
-                currentOperation = nil
-                op1 = nil
-                op2 = nil
-                result = nil
-                saisieActuelle = "0"
-            }
-            write(button)
-        } else if button.isOperator {
-            if op1 == nil {
-                op1 = saisieActuelle
-                currentOperation = button
-                previousOperand1 = op1!
-                saisieActuelle = "0"
-            } else if let operand1 = Double(op1 ?? ""),
-                      let operand2 = Double(saisieActuelle),
-                      let operation = currentOperation, result == nil {
-                
-                //on fait le premier calcul
-                let newOperation = CalculatorModel(operand1: operand1, operand2: operand2, theOperator: operation.rawValue)
-                result = newOperation.doTheMath()
-                
-                //sauvegarde
-                context.insert(newOperation)
-                
-                //sauvegarde du calcul precedent
-                previousOperand1 = String(operand1)
-                previousOperand2 = String(operand2)
-                previousResult = result!
-                
-                op1 = result
-                result = nil
-                currentOperation = button
-                saisieActuelle = "0"
-                op2 = nil
-            } else if op1 != nil, let result = result {
-                //soit le resultat sera l'op1
-                op1 = result
-                op2 = nil
-                currentOperation = button
-                saisieActuelle = "0"
-            }
-            result = nil
-        } else if button == .erase {
-            if !saisieActuelle.isEmpty {
-                saisieActuelle.removeLast()
-                if saisieActuelle.isEmpty {
-                    saisieActuelle = "0"
-                }
-            }
-        } else if button == .clear {
-            if saisieActuelle != "0" {
-                saisieActuelle = "0"
-                op1 = nil
-                op2 = nil
-                currentOperation = nil
-                if let result = result {
-                    previousResult = result
-                }
-                result = nil
-            }
-        } else if button == .percent {
-            percent()
-        } else if button == .equal {
-            if let operand1 = Double(op1 ?? ""),
-               let operation = currentOperation, result == nil {
-                op2 = saisieActuelle
-                
-                //creation d'une nouvelle instance de calcul
-                if let operand2 = Double(op2 ?? "") {
-                    let newOperation = CalculatorModel(operand1: operand1, operand2: operand2, theOperator: operation.rawValue)
-                    result = newOperation.doTheMath()
-                    saisieActuelle = (result ?? "0")
-                    
-                    //sauvegarde
-                    context.insert(newOperation)
-                }
-            } else if let resultat = Double(result ?? ""), var operand1 = Double(op1 ?? ""), let operand2 = Double(op2 ?? ""), let operation = currentOperation {
-                operand1 = resultat
-                op1 = result
-                
-                let newOperation = CalculatorModel(operand1: operand1, operand2: operand2, theOperator: operation.rawValue)
-                result = newOperation.doTheMath()
-                
-                //sauvegarde
-                context.insert(newOperation)
-                saisieActuelle = (result ?? "0")
-            }
-        } else if button == .decimal {
-            if !saisieActuelle.contains(".") {
-                saisieActuelle.append(".")
-            }
-        }
-    }
-    
-    func write(_ button: CalculatorButtons) {
-        if saisieActuelle.count < 8 {
-            if saisieActuelle == "0" || saisieActuelle == "00" {
-                saisieActuelle = button.rawValue
-            } else {
-                saisieActuelle += button.rawValue
-            }
-        }
-    }
-    
-    func percent() -> Void {
-            if saisieActuelle != "0" {
-                if var nombre = Double(saisieActuelle) {
-                    nombre /= 100
-                    saisieActuelle = String(nombre)
-                }
-            }
-        }
 }
 
 #Preview {

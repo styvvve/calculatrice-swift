@@ -7,24 +7,74 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA15A8C02ED7E98800DEF0FC /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA15A8BF2ED7E98700DEF0FC /* StoreKit.framework */; };
 		AA4B0D0C2E2A5C00001CEE00 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = AA4B0D0B2E2A5BFE001CEE00 /* AppIcon.icon */; };
+		AADC2DA82EC3B4BC002395C8 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = AADC2DA72EC3B4BC002395C8 /* GoogleMobileAds */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AAE717802F09FBA000881A92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA0DE0F32DE3649E0017E5B7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA0DE0FA2DE3649E0017E5B7;
+			remoteInfo = Opero;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		AA0DE0FB2DE3649E0017E5B7 /* Opero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Opero.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA15A8BF2ED7E98700DEF0FC /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		AA4B0D0B2E2A5BFE001CEE00 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
+		AAE7177C2F09FBA000881A92 /* OperoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OperoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		AA15A8BD2ED7E36E00DEF0FC /* Exceptions for "Opero" folder in "Opero" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+				OperoTest/CalculatorBasicOperationsTest.swift,
+			);
+			target = AA0DE0FA2DE3649E0017E5B7 /* Opero */;
+		};
+		AAE717862F09FBD000881A92 /* Exceptions for "Opero" folder in "OperoTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				OperoTest/CalculatorBasicOperationsTest.swift,
+			);
+			target = AAE7177B2F09FBA000881A92 /* OperoTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		AA0DE0FD2DE3649E0017E5B7 /* Opero */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				AA15A8BD2ED7E36E00DEF0FC /* Exceptions for "Opero" folder in "Opero" target */,
+				AAE717862F09FBD000881A92 /* Exceptions for "Opero" folder in "OperoTests" target */,
+			);
 			path = Opero;
+			sourceTree = "<group>";
+		};
+		AAE7177D2F09FBA000881A92 /* OperoTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = OperoTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		AA0DE0F82DE3649E0017E5B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AADC2DA82EC3B4BC002395C8 /* GoogleMobileAds in Frameworks */,
+				AA15A8C02ED7E98800DEF0FC /* StoreKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAE717792F09FBA000881A92 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -39,6 +89,8 @@
 			children = (
 				AA4B0D0B2E2A5BFE001CEE00 /* AppIcon.icon */,
 				AA0DE0FD2DE3649E0017E5B7 /* Opero */,
+				AAE7177D2F09FBA000881A92 /* OperoTests */,
+				AA15A8BE2ED7E98700DEF0FC /* Frameworks */,
 				AA0DE0FC2DE3649E0017E5B7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -47,8 +99,17 @@
 			isa = PBXGroup;
 			children = (
 				AA0DE0FB2DE3649E0017E5B7 /* Opero.app */,
+				AAE7177C2F09FBA000881A92 /* OperoTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AA15A8BE2ED7E98700DEF0FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA15A8BF2ED7E98700DEF0FC /* StoreKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,10 +132,34 @@
 			);
 			name = Opero;
 			packageProductDependencies = (
+				AADC2DA72EC3B4BC002395C8 /* GoogleMobileAds */,
 			);
 			productName = Opero;
 			productReference = AA0DE0FB2DE3649E0017E5B7 /* Opero.app */;
 			productType = "com.apple.product-type.application";
+		};
+		AAE7177B2F09FBA000881A92 /* OperoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAE717822F09FBA000881A92 /* Build configuration list for PBXNativeTarget "OperoTests" */;
+			buildPhases = (
+				AAE717782F09FBA000881A92 /* Sources */,
+				AAE717792F09FBA000881A92 /* Frameworks */,
+				AAE7177A2F09FBA000881A92 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AAE717812F09FBA000881A92 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AAE7177D2F09FBA000881A92 /* OperoTests */,
+			);
+			name = OperoTests;
+			packageProductDependencies = (
+			);
+			productName = OperoTests;
+			productReference = AAE7177C2F09FBA000881A92 /* OperoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -83,11 +168,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1630;
-				LastUpgradeCheck = 1630;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					AA0DE0FA2DE3649E0017E5B7 = {
 						CreatedOnToolsVersion = 16.3;
+					};
+					AAE7177B2F09FBA000881A92 = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = AA0DE0FA2DE3649E0017E5B7;
 					};
 				};
 			};
@@ -100,12 +189,17 @@
 			);
 			mainGroup = AA0DE0F22DE3649E0017E5B7;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				AADC2DA62EC3B4BC002395C8 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				AAEC0F412ED3F95900071323 /* XCRemoteSwiftPackageReference "purchases-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = AA0DE0FC2DE3649E0017E5B7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				AA0DE0FA2DE3649E0017E5B7 /* Opero */,
+				AAE7177B2F09FBA000881A92 /* OperoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -119,6 +213,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AAE7177A2F09FBA000881A92 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -129,7 +230,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AAE717782F09FBA000881A92 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AAE717812F09FBA000881A92 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA0DE0FA2DE3649E0017E5B7 /* Opero */;
+			targetProxy = AAE717802F09FBA000881A92 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		AA0DE1042DE364A30017E5B7 /* Debug */ = {
@@ -191,6 +307,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -248,6 +365,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -259,25 +377,33 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 97VPU3Y33R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Opero/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Opero;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Can we track your usages ?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stevenguele.Opero;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -287,25 +413,77 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 97VPU3Y33R;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Opero/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Opero;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Can we track your usages ?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stevenguele.Opero;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		AAE717832F09FBA000881A92 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 97VPU3Y33R;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevenguele.OperoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Opero.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Opero";
+			};
+			name = Debug;
+		};
+		AAE717842F09FBA000881A92 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 97VPU3Y33R;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stevenguele.OperoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Opero.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Opero";
 			};
 			name = Release;
 		};
@@ -330,7 +508,43 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		AAE717822F09FBA000881A92 /* Build configuration list for PBXNativeTarget "OperoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAE717832F09FBA000881A92 /* Debug */,
+				AAE717842F09FBA000881A92 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AADC2DA62EC3B4BC002395C8 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.13.0;
+			};
+		};
+		AAEC0F412ED3F95900071323 /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.49.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AADC2DA72EC3B4BC002395C8 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AADC2DA62EC3B4BC002395C8 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AA0DE0F32DE3649E0017E5B7 /* Project object */;
 }

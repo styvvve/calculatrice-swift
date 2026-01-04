@@ -9,40 +9,50 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var openMoreView: Bool = false
     @State var openSettingsView: Bool = false
     
     @AppStorage("DarkMode") private var isDarkMode: Bool = false
     
+    //pour la sideView
+    @State private var showDrawer = false
+    
+    @GestureState private var dragOffset = CGSize.zero
+    
     var body: some View {
-        ZStack {
-            VStack {
-                TopBarView(openSettingsView: $openSettingsView)
-                
-                Spacer()
-                
-                
-                KeyboardView()
-                
+        GeometryReader { geo in
+            ZStack {
+                VStack {
+                    TopBarView(openSettingsView: $openSettingsView, sideBarView: $showDrawer)
+                    
+                    Spacer()
+                    
+                    
+                    KeyboardView()
+                    
+                    BannerAdView(width: (geo.size.width*50)/100)
+                        .frame(width: (geo.size.width*50)/100, height: 50, alignment: .center)
+                        .background(.ultraThinMaterial)
+                        .padding(.top)
+                }
+                .preferredColorScheme(isDarkMode ? .dark : .light)
             }
-            .preferredColorScheme(isDarkMode ? .dark : .light)
-            
-            /*HistoryView(isShowing: $openMoreView)
-                .offset(x: openMoreView ? 0 : -300)
-                .animation(.easeInOut(duration: 0.3), value: openMoreView)
-                .gesture(
-                    DragGesture()
-                        .onEnded { value in
-                            if value.translation.width < -50 {
+            .fullScreenCover(isPresented: $openSettingsView) {
+                SettingsView()
+            }
+            .overlay {
+                ZStack {
+                    if showDrawer {
+                        Color.black.opacity(0.3)
+                            .background(VisualEffectView(effect: UIBlurEffect(style: .dark)))
+                            .ignoresSafeArea()
+                            .onTapGesture {
                                 withAnimation {
-                                    openMoreView.toggle()
+                                    showDrawer = false
                                 }
                             }
-                        }
-                ) */
-        }
-        .fullScreenCover(isPresented: $openSettingsView) {
-            SettingsView()
+                    }
+                }
+            }
         }
     }
 }

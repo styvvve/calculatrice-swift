@@ -1,0 +1,15 @@
+Copyright (c) 2025 styvvve
+
+All Rights Reserved.
+
+This software and all associated files are the exclusive property of the author.
+Unauthorized copying, distribution, modification, or use of this software,
+in whole or in part, is strictly prohibited without explicit written permission
+from the author.
+
+The source code is provided for viewing and educational purposes only.
+No rights are granted to compile, distribute, or publish applications
+based on this code.
+
+For permissions or inquiries, please contact:
+styvvvenguele@icloud.com
