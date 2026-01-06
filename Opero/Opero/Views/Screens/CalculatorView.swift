@@ -9,7 +9,11 @@ import SwiftUI
 
 struct CalculatorView: View {
     
-    @StateObject private var viewModel = CalculatorViewModel()
+    @StateObject private var viewModel: CalculatorViewModel
+    
+    init(viewModel: CalculatorViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
     
     let buttons: [[CalculatorButtons]] = [
             [.clear, .erase, .percent, .divide],
@@ -83,5 +87,6 @@ struct CalculatorView: View {
 }
 
 #Preview {
-    CalculatorView()
+    let mock = MockCalculatorRepository()
+    CalculatorView(viewModel: CalculatorViewModel(repo: mock))
 }

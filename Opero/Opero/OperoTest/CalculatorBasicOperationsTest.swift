@@ -12,7 +12,8 @@ struct CalculatorBasicOperationsTest {
     
     @Test
     func inputNumbers_shouldBuildDisplay() async {
-        let vm = CalculatorViewModel()
+        let mock = MockCalculatorRepository()
+        let vm = CalculatorViewModel(repo: mock)
         
         vm.input(.one)
         vm.input(.two)
@@ -22,7 +23,8 @@ struct CalculatorBasicOperationsTest {
     
     @Test
     func addition_shouldReturnCorrectResult() async {
-        let vm = CalculatorViewModel()
+        let mock = MockCalculatorRepository()
+        let vm = CalculatorViewModel(repo: mock)
         
         vm.input(.two)
         vm.input(.plus)
@@ -34,7 +36,8 @@ struct CalculatorBasicOperationsTest {
     
     @Test
     func chainedOperations_shouldReusePreviousResult() async {
-        let vm = CalculatorViewModel()
+        let mock = MockCalculatorRepository()
+        let vm = CalculatorViewModel(repo: mock)
         
         vm.input(.two)
         vm.input(.plus)
@@ -48,7 +51,8 @@ struct CalculatorBasicOperationsTest {
     
     @Test
     func divisionByZero_shouldDisplayError() async {
-        let vm = CalculatorViewModel()
+        let mock = MockCalculatorRepository()
+        let vm = CalculatorViewModel(repo: mock)
         
         vm.input(.eight)
         vm.input(.divide)
@@ -60,7 +64,8 @@ struct CalculatorBasicOperationsTest {
     
     @Test
     func percent_shouldDisplayBy100() async {
-        let vm = CalculatorViewModel()
+        let mock = MockCalculatorRepository()
+        let vm = CalculatorViewModel(repo: mock)
         
         vm.input(.five)
         vm.input(.zero)

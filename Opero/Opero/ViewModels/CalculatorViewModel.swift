@@ -38,6 +38,13 @@ final class CalculatorViewModel: ObservableObject {
     
     private var state: CalculatorState = .enteringFirstNumber
     
+    //MARK: - Persistence
+    private let repo: CalculatorRepositoryProtocol
+    
+    init(repo: CalculatorRepositoryProtocol) {
+        self.repo = repo
+    }
+    
     func input(_ button: CalculatorButtons) {
         switch button {
         case .clear:
@@ -134,11 +141,15 @@ final class CalculatorViewModel: ObservableObject {
             errors = nil
             
             result = value
+            previousOperand1 = operand1 //this for the previous display
+            operand1 = result
+            
+            //save the operation
+            let newOperation = CalculatorModel(operand1: op1, operand2: (operand2 ?? 0), operation: operation.rawValue, result: (result ?? 0))
+            repo.save(newOperation)
         } catch {
             display = error.localizedDescription
         }
-        previousOperand1 = operand1 //this for the previous display
-        operand1 = result
     }
     
     private func decimal() {

@@ -35,6 +35,7 @@
 			membershipExceptions = (
 				Info.plist,
 				OperoTest/CalculatorBasicOperationsTest.swift,
+				OperoTest/SwiftDataTest.swift,
 			);
 			target = AA0DE0FA2DE3649E0017E5B7 /* Opero */;
 		};
@@ -42,6 +43,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				OperoTest/CalculatorBasicOperationsTest.swift,
+				OperoTest/SwiftDataTest.swift,
 			);
 			target = AAE7177B2F09FBA000881A92 /* OperoTests */;
 		};

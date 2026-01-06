@@ -1,45 +1,42 @@
-# 🚀 Opero – Calculatrice Moderne pour iOS
+# Opero – Calculatrice Moderne pour iOS
 
 **Opero** est une calculatrice élégante, rapide et intuitive pensée pour le quotidien.  
 Interface minimaliste, historique intégré, conversions simples : tout est fait pour aller droit au but.
 
 ---
 
-## ✨ Fonctionnalités
+## Fonctionnalités
 
-- 🧮 **Calculatrice complète** : opérations basiques et avancées.
-- 📜 **Historique intelligent** : garde une trace de tes calculs.
-- ⚡ **Interface fluide et moderne** : animations propres et design iOS.
-- 🎛️ **Retour haptique** : ressent chaque interaction.
-- 🔄 **Mode conversion** : bascule facilement vers les conversions de devises (si inclus).
-- 🕶️ **Dark Mode supporté**.
+-  **Calculatrice complète** : opérations basiques et avancées.
+-  **Historique intelligent** : garde une trace de tes calculs.
+-  **Interface fluide et moderne** : animations propres et design iOS.
+- ️ **Retour haptique** : ressent chaque interaction.
+-  **Mode conversion** : bascule facilement vers les conversions de devises (si inclus).
+- ️ **Dark Mode supporté**.
 
 ---
 
-## 📱 Technologies utilisées
+## Technologies utilisées
 
 - **Swift / SwiftUI**
 - **MVVM**
 - **Haptics**
 - **Animations SwiftUI**
-- (optionnel) **API pour conversions**
+- **API pour conversions**
 
 ---
 
-## 📥 Téléchargement
+## Téléchargement
 
-Opero sera disponible prochainement sur l’App Store.  
-_Le lien sera ajouté dès la publication._
+https://apps.apple.com/us/app/opero/id6747672985
 
----
-
-## 🔧 Installation (développeurs)
+## Installation (développeurs)
 
 1. Clone le repo :
    ```bash
    git clone https://github.com/tonuser/calculatrice-swift.git
 
-## 📄 Politique de confidentialité
+## Politique de confidentialité
 
 1. Introduction
 
@@ -69,8 +66,8 @@ AdMob peut collecter :
 
 Google peut utiliser ces données pour personnaliser les publicités, si vous l’acceptez via le système iOS (App Tracking Transparency).
 
-👉 Vous pouvez refuser le suivi directement dans les réglages iOS.
-👉 Google est conforme au RGPD et CCPA.
+ Vous pouvez refuser le suivi directement dans les réglages iOS.
+ Google est conforme au RGPD et CCPA.
 
 Pour plus d’informations : https://policies.google.com/technologies/ads
 
@@ -86,9 +83,9 @@ Nature des données envoyées à l’IA
 
 Ce que nous ne collectons PAS
 
-❌ Aucun message privé n’est stocké sur nos serveurs.
-❌ Aucun contenu n’est revendu ni utilisé à des fins publicitaires.
-❌ Aucune donnée sensible n’est demandée.
+ Aucun message privé n’est stocké sur nos serveurs.
+ Aucun contenu n’est revendu ni utilisé à des fins publicitaires.
+ Aucune donnée sensible n’est demandée.
 
 Les fournisseurs d’IA peuvent analyser les requêtes pour améliorer leurs modèles, conformément à leurs politiques.
 Tu peux préciser plus tard : “Nous utilisons OpenAI API avec l’option d’opt-out des données” si tu l’actives.
@@ -97,9 +94,9 @@ Tu peux préciser plus tard : “Nous utilisons OpenAI API avec l’option d’o
 
 Opero ne nécessite aucune inscription.
 Nous ne collectons :
-❌ aucune adresse mail,
-❌ aucun numéro de téléphone,
-❌ aucun identifiant personnel.
+ aucune adresse mail,
+ aucun numéro de téléphone,
+ aucun identifiant personnel.
 
 6. Partage de données
 
@@ -131,7 +128,7 @@ La date de mise à jour sera modifiée en conséquence.
 Pour toute question: 
 Email: styvvvenguele@icloud.com
 
-## ❤️ Contribution
+##️ Contribution
 
 Les contributions sont les bienvenues !
 N’hésite pas à ouvrir une issue ou proposer une pull request.
