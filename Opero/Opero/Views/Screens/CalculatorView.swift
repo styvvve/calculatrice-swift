@@ -27,53 +27,93 @@ struct CalculatorView: View {
     
     @AppStorage("DarkMode") private var isDarkMode: Bool = false
     
+    @State var openSettingsView: Bool = false
+    @State private var openHistoryView = false
+    
     var body: some View {
-        VStack(spacing: 12) {
-            
-            HStack {
-                //le calcul d'avant
-                Spacer()
-                Text(viewModel.getCurrentExpression)
-                    .bold()
-                    .foregroundStyle(isDarkMode ? .white : .black)
-                    .font(.system(size: 25))
-            }
-            .padding(.horizontal)
-            
-            //Display
-            HStack {
-                Spacer()
-                Text(viewModel.display)
-                    .bold()
-                    .foregroundStyle(isDarkMode ? .white : .black)
-                    .font(viewModel.display.count > 7 ? .system(size: 60) : .system(size: 75))
-            }
-            .padding()
-            
-            //Buttons
-            ForEach(buttons, id: \.self) { row in
-                HStack {
-                    ForEach(row, id: \.self) { column in
+        GeometryReader { geo in
+            VStack {
+                VStack {
+                    HStack(spacing: 12) {
+                        Spacer()
                         Button {
-                            haptic.toggle()
-                            viewModel.input(column)
-                        }label: {
-                            RoundedRectangle(cornerRadius: 15)
-                                .fill(column.getColor(darkMode: isDarkMode))
-                                .frame(width: self.buttonWidth(item: column), height: self.buttonHeight(item: column))
-                                .overlay(
-                                    Text(column.rawValue)
-                                        .foregroundStyle(isDarkMode ? .black : .white)
-                                        .bold()
-                                        .font(.title)
-                                )
+                            openHistoryView.toggle()
+                        } label: {
+                            Image(systemName: "clock.arrow.circlepath")
+                                .font(.system(size: 35, weight: .semibold))
                         }
-#if !targetEnvironment(simulator)
-                        .sensoryFeedback(.impact(weight: .medium, intensity: 1), trigger: haptic)
-#endif
+                        .buttonStyle(PlainButtonStyle())
+                        SettingsButtonView(openSettingsView: $openSettingsView)
+                    }
+                    .padding()
+                    
+                    Spacer()
+                    
+                    HStack {
+                        //le calcul d'avant
+                        Spacer()
+                        if viewModel.currentExpression.isEmpty {
+                            Text("0") //to be sure the space isn't recalculated
+                                .bold()
+                                .foregroundStyle(isDarkMode ? .white : .black)
+                                .font(.system(size: 25))
+                        } else {
+                            Text(viewModel.currentExpression)
+                                .bold()
+                                .foregroundStyle(isDarkMode ? .white : .black)
+                                .font(.system(size: 25))
+                        }
+                    }
+                    .padding(.horizontal)
+                    
+                    //Display
+                    HStack {
+                        Spacer()
+                        Text(viewModel.display)
+                            .bold()
+                            .foregroundStyle(isDarkMode ? .white : .black)
+                            .font(viewModel.display.count > 7 ? .system(size: 60) : .system(size: 75))
+                    }
+                    .padding()
+                    
+                    //Buttons
+                    ForEach(buttons, id: \.self) { row in
+                        HStack {
+                            ForEach(row, id: \.self) { column in
+                                Button {
+                                    haptic.toggle()
+                                    viewModel.input(column)
+                                }label: {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .fill(column.getColor(darkMode: isDarkMode))
+                                        .frame(width: self.buttonWidth(item: column), height: self.buttonHeight(item: column))
+                                        .overlay(
+                                            Text(column.rawValue)
+                                                .foregroundStyle(isDarkMode ? .black : .white)
+                                                .bold()
+                                                .font(.title)
+                                        )
+                                }
+        #if !targetEnvironment(simulator)
+                                .sensoryFeedback(.impact(weight: .medium, intensity: 1), trigger: haptic)
+        #endif
+                            }
+                        }
                     }
                 }
+                StyledBannerAdView()
+                    .padding(.vertical)
             }
+            .preferredColorScheme(isDarkMode ? .dark : .light)
+        }
+        .onAppear {
+            viewModel.loadHistory()
+        }
+        .fullScreenCover(isPresented: $openSettingsView) {
+            SettingsView()
+        }
+        .sheet(isPresented: $openHistoryView) {
+            HistoryView(operations: viewModel.history)
         }
     }
     
@@ -87,6 +127,5 @@ struct CalculatorView: View {
 }
 
 #Preview {
-    let mock = MockCalculatorRepository()
-    CalculatorView(viewModel: CalculatorViewModel(repo: mock))
+    CalculatorView(viewModel: CalculatorViewModel(repo: PreviewCalculatorRepository()))
 }

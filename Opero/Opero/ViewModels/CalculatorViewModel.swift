@@ -40,6 +40,7 @@ final class CalculatorViewModel: ObservableObject {
     
     //MARK: - Persistence
     private let repo: CalculatorRepositoryProtocol
+    @Published private(set) var history: [CalculatorModel] = []
     
     init(repo: CalculatorRepositoryProtocol) {
         self.repo = repo
@@ -191,7 +192,7 @@ final class CalculatorViewModel: ObservableObject {
     }
     
     //getters
-    var getCurrentExpression: String {
+    var currentExpression: String {
         switch state {
         case .enteringFirstNumber:
             return ""
@@ -212,5 +213,9 @@ final class CalculatorViewModel: ObservableObject {
             state = CalculatorState.enteringFirstNumber
             clear()
         }
+    }
+    
+    func loadHistory() {
+        history = repo.fetchAll()
     }
 }

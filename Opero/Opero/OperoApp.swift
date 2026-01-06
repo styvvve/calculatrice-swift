@@ -15,9 +15,11 @@ struct OperoApp: App {
     @AppStorage("DarkMode") private var isDarkMode: Bool = false
     @AppStorage("haptics") private var areHapticsActivated: Bool = true
     
+    @Environment(\.modelContext) private var context
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CalculatorView(viewModel: CalculatorViewModel(repo: SwiftDataCalculatorRepository(context: context)))
                 .preferredColorScheme(isDarkMode ? .dark : .light)
         }
         .modelContainer(for: CalculatorModel.self)
