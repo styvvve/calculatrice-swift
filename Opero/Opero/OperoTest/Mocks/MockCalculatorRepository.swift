@@ -21,5 +21,5 @@ final class MockCalculatorRepository: CalculatorRepositoryProtocol {
     
     func delete(_ operation: CalculatorModel) {}
     
-    
+    func deleteAll() {}
 }

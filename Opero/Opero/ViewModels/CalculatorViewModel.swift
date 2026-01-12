@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 //stocke toute la logique métier de la calculatrice
 
@@ -18,13 +19,14 @@ import Foundation
  -l'effacement / reset
  */
 
-final class CalculatorViewModel: ObservableObject {
+@Observable
+final class CalculatorViewModel {
     
     // MARK: - Output (UI)
-    @Published var display: String = "0"
+    var display: String = "0"
     
     // MARK: - ERRORS
-    @Published var errors: String?
+    var errors: String?
     
     //MARK: - Internal state soit "logique métier"
     private var operand1: Double?
@@ -40,7 +42,7 @@ final class CalculatorViewModel: ObservableObject {
     
     //MARK: - Persistence
     private let repo: CalculatorRepositoryProtocol
-    @Published private(set) var history: [CalculatorModel] = []
+    private(set) var history: [CalculatorModel] = []
     
     init(repo: CalculatorRepositoryProtocol) {
         self.repo = repo
@@ -217,5 +219,10 @@ final class CalculatorViewModel: ObservableObject {
     
     func loadHistory() {
         history = repo.fetchAll()
+    }
+    
+    func removeAllhistory() {
+        repo.deleteAll()
+        history.removeAll()
     }
 }

@@ -12,4 +12,5 @@ protocol CalculatorRepositoryProtocol {
     func save(_ operation: CalculatorModel)
     func fetchAll() -> [CalculatorModel]
     func delete(_ operation: CalculatorModel)
+    func deleteAll()
 }

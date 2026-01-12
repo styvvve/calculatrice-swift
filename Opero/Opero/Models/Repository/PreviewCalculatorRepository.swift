@@ -16,4 +16,6 @@ final class PreviewCalculatorRepository: CalculatorRepositoryProtocol {
     }
     
     func delete(_ operation: CalculatorModel) {}
+    
+    func deleteAll() {}
 }

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		AA15A8C02ED7E98800DEF0FC /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA15A8BF2ED7E98700DEF0FC /* StoreKit.framework */; };
 		AA4B0D0C2E2A5C00001CEE00 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = AA4B0D0B2E2A5BFE001CEE00 /* AppIcon.icon */; };
+		AA750A5C2F107A8E00E5BB27 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = AA750A5B2F107A8E00E5BB27 /* RevenueCat */; };
+		AA750A5E2F107A8E00E5BB27 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = AA750A5D2F107A8E00E5BB27 /* RevenueCatUI */; };
 		AADC2DA82EC3B4BC002395C8 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = AADC2DA72EC3B4BC002395C8 /* GoogleMobileAds */; };
 /* End PBXBuildFile section */
 
@@ -59,11 +61,6 @@
 			path = Opero;
 			sourceTree = "<group>";
 		};
-		AAE7177D2F09FBA000881A92 /* OperoTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = OperoTests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,8 +68,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA750A5E2F107A8E00E5BB27 /* RevenueCatUI in Frameworks */,
 				AADC2DA82EC3B4BC002395C8 /* GoogleMobileAds in Frameworks */,
 				AA15A8C02ED7E98800DEF0FC /* StoreKit.framework in Frameworks */,
+				AA750A5C2F107A8E00E5BB27 /* RevenueCat in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +90,6 @@
 			children = (
 				AA4B0D0B2E2A5BFE001CEE00 /* AppIcon.icon */,
 				AA0DE0FD2DE3649E0017E5B7 /* Opero */,
-				AAE7177D2F09FBA000881A92 /* OperoTests */,
 				AA15A8BE2ED7E98700DEF0FC /* Frameworks */,
 				AA0DE0FC2DE3649E0017E5B7 /* Products */,
 			);
@@ -135,6 +133,8 @@
 			name = Opero;
 			packageProductDependencies = (
 				AADC2DA72EC3B4BC002395C8 /* GoogleMobileAds */,
+				AA750A5B2F107A8E00E5BB27 /* RevenueCat */,
+				AA750A5D2F107A8E00E5BB27 /* RevenueCatUI */,
 			);
 			productName = Opero;
 			productReference = AA0DE0FB2DE3649E0017E5B7 /* Opero.app */;
@@ -152,9 +152,6 @@
 			);
 			dependencies = (
 				AAE717812F09FBA000881A92 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				AAE7177D2F09FBA000881A92 /* OperoTests */,
 			);
 			name = OperoTests;
 			packageProductDependencies = (
@@ -541,6 +538,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		AA750A5B2F107A8E00E5BB27 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAEC0F412ED3F95900071323 /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCat;
+		};
+		AA750A5D2F107A8E00E5BB27 /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AAEC0F412ED3F95900071323 /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCatUI;
+		};
 		AADC2DA72EC3B4BC002395C8 /* GoogleMobileAds */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AADC2DA62EC3B4BC002395C8 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;

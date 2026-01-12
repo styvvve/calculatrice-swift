@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HistoryView: View {
     
-    let operations: [CalculatorModel]
+    @Query(sort: \CalculatorModel.date, order: .reverse) var operations: [CalculatorModel]
     
     var body: some View {
         VStack(alignment: .center) {
@@ -34,10 +35,5 @@ struct HistoryView: View {
 }
 
 #Preview {
-    HistoryView(operations: [
-        CalculatorModel(operand1: 2, operand2: 3, operation: "+", result: 5),
-        CalculatorModel(operand1: 2, operand2: 3, operation: "+", result: 5),
-        CalculatorModel(operand1: 2, operand2: 3, operation: "+", result: 5),
-        CalculatorModel(operand1: 2, operand2: 3, operation: "+", result: 5)
-    ])
+    HistoryView()
 }

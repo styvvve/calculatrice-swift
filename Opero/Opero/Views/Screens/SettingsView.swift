@@ -6,8 +6,9 @@
 //
 
 import SwiftUI
-import SwiftData
 import WebKit
+import RevenueCat
+import RevenueCatUI
 
 struct SettingsView: View {
     
@@ -20,13 +21,11 @@ struct SettingsView: View {
     //affichage de la page web
     @State private var isShowingSheet = false
     
-    
-    //historique de calculs
-    @Environment(\.modelContext) private var context
-    @Query var calcHistory: [CalculatorModel]
-    
-    
     @State private var adviceBeforeDelete: Bool = false
+    
+    let viewModel: CalculatorViewModel
+    
+    @State private var presentPaywallView: Bool = false
     
     var body: some View {
         NavigationView {
@@ -81,7 +80,7 @@ struct SettingsView: View {
                         .frame(height: 10)
                     
                     Button {
-                        
+                        presentPaywallView.toggle()
                     } label: {
                         HStack {
                             Text("Supprimer les pubs : 1,99€")
@@ -96,6 +95,9 @@ struct SettingsView: View {
                     
                     Spacer()
             }
+            }
+            .fullScreenCover(isPresented: $presentPaywallView) {
+                PaywallView()
             }
             .sheet(isPresented: $isShowingSheet) {
                 VStack {
@@ -127,9 +129,7 @@ struct SettingsView: View {
             .alert("Supprimer l'historique de calculs" ,isPresented: $adviceBeforeDelete) {
                 Button("Annuler", role: .cancel) { }
                 Button("Confirmer", role: .destructive) {
-                    for item in calcHistory {
-                        context.delete(item)
-                    }
+                    viewModel.removeAllhistory()
                 }
             } message: {
                 Text("Cette action est irréversible.")
@@ -165,5 +165,5 @@ struct LegacyWebView: UIViewRepresentable {
 }
 
 #Preview {
-    SettingsView()
+    SettingsView(viewModel: CalculatorViewModel(repo: PreviewCalculatorRepository()))
 }

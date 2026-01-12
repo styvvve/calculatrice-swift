@@ -9,11 +9,7 @@ import SwiftUI
 
 struct CalculatorView: View {
     
-    @StateObject private var viewModel: CalculatorViewModel
-    
-    init(viewModel: CalculatorViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
-    }
+    @State var viewModel: CalculatorViewModel
     
     let buttons: [[CalculatorButtons]] = [
             [.clear, .erase, .percent, .divide],
@@ -40,7 +36,7 @@ struct CalculatorView: View {
                             openHistoryView.toggle()
                         } label: {
                             Image(systemName: "clock.arrow.circlepath")
-                                .font(.system(size: 35, weight: .semibold))
+                                .font(.system(size: 35, weight: .light))
                         }
                         .buttonStyle(PlainButtonStyle())
                         SettingsButtonView(openSettingsView: $openSettingsView)
@@ -110,10 +106,10 @@ struct CalculatorView: View {
             viewModel.loadHistory()
         }
         .fullScreenCover(isPresented: $openSettingsView) {
-            SettingsView()
+            SettingsView(viewModel: viewModel)
         }
         .sheet(isPresented: $openHistoryView) {
-            HistoryView(operations: viewModel.history)
+            HistoryView()
         }
     }
     

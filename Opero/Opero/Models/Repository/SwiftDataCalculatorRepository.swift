@@ -29,4 +29,14 @@ final class SwiftDataCalculatorRepository: CalculatorRepositoryProtocol {
         context.delete(operation)
     }
     
+    func deleteAll() {
+        let descriptor = FetchDescriptor<CalculatorModel>()
+        
+        if let operations = try? context.fetch(descriptor) {
+            for operation in operations {
+                delete(operation)
+            }
+        }
+    }
+    
 }
