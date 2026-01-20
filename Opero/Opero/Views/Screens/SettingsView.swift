@@ -40,19 +40,6 @@ struct SettingsView: View {
                         .bold()
                     
                     Button {
-                        //rechercher ds l'app store
-                    } label: {
-                        HStack {
-                            Text("Restaurer les achats")
-                            Spacer()
-                            Image(systemName: "arrow.right")
-                        }
-                        .padding()
-                        .foregroundStyle(isDarkMode ? .white : .black)
-                        .bold()
-                    }
-                    
-                    Button {
                         isShowingSheet.toggle()
                     } label: {
                         Text("Aller sur la page de l'application")

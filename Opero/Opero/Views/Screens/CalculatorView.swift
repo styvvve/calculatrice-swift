@@ -19,7 +19,7 @@ struct CalculatorView: View {
             [.zero, .doubleZero, .decimal, .equal]
         ]
     
-    @State private var haptic: Bool = false
+    @AppStorage("haptics") private var areHapticsActivated: Bool = false
     
     @AppStorage("DarkMode") private var isDarkMode: Bool = false
     
@@ -77,7 +77,7 @@ struct CalculatorView: View {
                         HStack {
                             ForEach(row, id: \.self) { column in
                                 Button {
-                                    haptic.toggle()
+                                    areHapticsActivated.toggle()
                                     viewModel.input(column)
                                 }label: {
                                     RoundedRectangle(cornerRadius: 15)
@@ -91,7 +91,11 @@ struct CalculatorView: View {
                                         )
                                 }
         #if !targetEnvironment(simulator)
-                                .sensoryFeedback(.impact(weight: .medium, intensity: 1), trigger: haptic)
+                                if areHapticsActivated {
+                                    .sensoryFeedback(.impact(weight: .medium, intensity: 1), trigger: areHapticsActivated)
+                                } else {
+                                    View
+                                }
         #endif
                             }
                         }
